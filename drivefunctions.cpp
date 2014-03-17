@@ -1,6 +1,57 @@
 #include "drivefunctions.h"
 #include "constants.h"
 
+void drive(float power, float distance, bool encodingCorrection) {
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+    while (rightencoder.Counts() < distance * COUNTS_PER_INCH) {
+        if (rightencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
+            //Look at encoder counts and adjust right motor based on results
+            if (leftencoder.Counts() != 0) {
+                left.SetPower(power * rightencoder.Counts() / leftencoder.Counts());
+            }
+        }
+        LCD.Clear();
+        LCD.Write("The value of the left encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(rightencoder.Counts());
+        Sleep(50);
+    }
+    left.SetPower(0);
+    right.SetPower(0);
+}
+
+bool driveAndCheckForLight(float power, float distance, bool encodingCorrection) {
+    bool isRed = false;
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+    while (rightencoder.Counts() < distance * COUNTS_PER_INCH) {
+        if (rightencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
+            //Look at encoder counts and adjust right motor based on results
+            if (leftencoder.Counts() != 0) {
+                left.SetPower(power * rightencoder.Counts() / leftencoder.Counts());
+            }
+        }
+        LCD.Clear();
+        LCD.Write("The value of the left encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(rightencoder.Counts());
+        if (photosensor.Value() < RED_BLUE_THRESHOLD) {
+           isRed = true;
+        }
+        Sleep(50);
+    }
+    left.SetPower(0);
+    right.SetPower(0);
+    return isRed;
+}
+
 void driveUntilSwitchPress(float power, int switchId) {
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
@@ -73,22 +124,22 @@ void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid) {
     }
 }
 
-void followLineUntilSwitchPress(float power) {
+void followLineUntilSwitchPress(float power, int switchId, bool yellow) {
     int state = LINE_ON_RIGHT;
 
-    while(forkliftSwitch.Value())
+    while((switchId == FORKLIFT_SWITCH && forkliftSwitch.Value()) || (switchId == BACK_SWITCH && backSwitch.Value()))
     {
-        if (centeropto.Value() < yellowCenter) {
+        if ((yellow && centeropto.Value() < yellowCenter) || (!yellow && centeropto.Value() > blackCenter)) {
             setToForward();
             if (state == LINE_ON_RIGHT) {
                 state = ON_LINE_FIRST;
             } else if (state == LINE_ON_LEFT) {
                 state = ON_LINE_SECOND;
             }
-        } else if (leftopto.Value() < yellowLeft) {
+        } else if ((yellow && leftopto.Value() < yellowLeft) || (!yellow && leftopto.Value() > blackLeft)) {
             setToTurn(true);
             state = LINE_ON_LEFT;
-        } else if (rightopto.Value() < yellowRight) {
+        } else if ((yellow && rightopto.Value() < yellowRight) || (!yellow && rightopto.Value() > blackRight)) {
             setToTurn(false);
             state = LINE_ON_RIGHT;
         } else {
@@ -160,7 +211,7 @@ void waitForStartLight() {
     }
 }
 
-void calibrateOptosensors() {
+void calibrateOptosensors(bool yellow) {
     LCD.WriteLine("Place robot off line.");
     while (!buttons.MiddlePressed());
     while (!buttons.MiddleReleased());
@@ -180,8 +231,14 @@ void calibrateOptosensors() {
     while (!buttons.MiddleReleased());
     float centerOn = centeropto.Value();
     //Update thresholds
-    yellowLeft = (leftOff + leftOn) / 2;
-    yellowRight = (rightOff + rightOn) / 2;
-    yellowCenter = (centerOff + centerOn) / 2;
+    if (yellow) {
+        yellowLeft = (leftOff + leftOn) / 2;
+        yellowRight = (rightOff + rightOn) / 2;
+        yellowCenter = (centerOff + centerOn) / 2;
+    } else {
+        blackLeft = (leftOff + leftOn) / 2;
+        blackRight = (rightOff + rightOn) / 2;
+        blackCenter = (centerOff + centerOn) / 2;
+    }
     Sleep(500);
 }

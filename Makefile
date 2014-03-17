@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 TARGET = FEHRobotCode
+=======
+TARGET = PerformanceTest7
+>>>>>>> 3dbe240dfde328932069a2afb0de8613583e0fa8
 
 GITBINARY := $(FEHQTINSTALL)/Git/bin/git
 FEHURL := google.com
