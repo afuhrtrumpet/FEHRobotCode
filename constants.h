@@ -68,6 +68,9 @@
 extern float yellowLeft;
 extern float yellowCenter;
 extern float yellowRight;
+extern float blackLeft;
+extern float blackCenter;
+extern float blackRight;
 
 extern ButtonBoard buttons;
 extern AnalogInputPin photosensor;

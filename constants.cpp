@@ -10,6 +10,9 @@
 float yellowLeft = 0.5;
 float yellowCenter = 2.7;
 float yellowRight = 2.45;
+float blackLeft;
+float blackCenter;
+float blackRight;
 
 //Sensors and motors
 ButtonBoard buttons( FEHIO::Bank3 );
