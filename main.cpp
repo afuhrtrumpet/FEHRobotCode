@@ -7,6 +7,9 @@
 #include "constants.h"
 #include "drivefunctions.h"
 
+float distance1 = 20;
+float distance2 = 30;
+
 int main(void)
 {
     LCD.Clear( FEHLCD::Scarlet);
@@ -35,6 +38,8 @@ int main(void)
         forklift.SetDegree(START_ANGLE);
 
         /* START MAIN SEQUENCE OF EVENTS */
+
+
 
         /* END MAIN SEQUENCE OF EVENTS */
 

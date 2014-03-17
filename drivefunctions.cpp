@@ -1,6 +1,57 @@
 #include "drivefunctions.h"
 #include "constants.h"
 
+void drive(float power, float distance, bool encodingCorrection) {
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+    while (rightencoder.Counts() < distance * COUNTS_PER_INCH) {
+        if (rightencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
+            //Look at encoder counts and adjust right motor based on results
+            if (leftencoder.Counts() != 0) {
+                left.SetPower(power * rightencoder.Counts() / leftencoder.Counts());
+            }
+        }
+        LCD.Clear();
+        LCD.Write("The value of the left encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(rightencoder.Counts());
+        Sleep(50);
+    }
+    left.SetPower(0);
+    right.SetPower(0);
+}
+
+bool driveAndCheckForLight(float power, float distance, bool encodingCorrection) {
+    bool isRed = false;
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+    while (rightencoder.Counts() < distance * COUNTS_PER_INCH) {
+        if (rightencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
+            //Look at encoder counts and adjust right motor based on results
+            if (leftencoder.Counts() != 0) {
+                left.SetPower(power * rightencoder.Counts() / leftencoder.Counts());
+            }
+        }
+        LCD.Clear();
+        LCD.Write("The value of the left encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(rightencoder.Counts());
+        if (photosensor.Value() < RED_BLUE_THRESHOLD) {
+           isRed = true;
+        }
+        Sleep(50);
+    }
+    left.SetPower(0);
+    right.SetPower(0);
+    return isRed;
+}
+
 void driveUntilSwitchPress(float power, int switchId) {
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
