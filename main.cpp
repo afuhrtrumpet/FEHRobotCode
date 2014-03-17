@@ -1,14 +1,14 @@
 #include <FEHLCD.h>
 #include <FEHIO.h>
 #include <FEHUtility.h>
+#include <FEHMotor.h>
+#include <FEHServo.h>
+#include <FEHWONKA.h>
+#include "constants.h"
+#include "drivefunctions.h"
 
 int main(void)
 {
-    ButtonBoard buttons( FEHIO::Bank3 );
-
-    LCD.Clear( FEHLCD::Black );
-    LCD.SetFontColor( FEHLCD::White );
-
     while( true )
     {
         if( buttons.MiddlePressed() )
@@ -17,6 +17,7 @@ int main(void)
             Sleep( 100 );
         }
     }
+
+    setToForward();
     return 0;
 }
-
