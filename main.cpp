@@ -6,7 +6,10 @@
 #include <FEHWONKA.h>
 #include "constants.h"
 #include "drivefunctions.h"
+#include "otherfunctions.h"
 #include "button.h"
+#include "switch.h"
+#include "skid.h"
 
 int main(void)
 {
@@ -35,13 +38,15 @@ int main(void)
         LCD.Clear();
         forklift.SetDegree(START_ANGLE);
 
-    /* START MAIN SEQUENCE OF EVENTS */
+        /* START MAIN SEQUENCE OF EVENTS */
 
-    Button.Run();
+        Button::Run();
+        Switch::Run();
+        Skid::Run();
 
-    /* END MAIN SEQUENCE OF EVENTS */
+        /* END MAIN SEQUENCE OF EVENTS */
 
-    LCD.WriteLine("Press the middle button to reset.");
+        LCD.WriteLine("Press the middle button to reset.");
         while (!buttons.MiddlePressed());
         while (!buttons.MiddleReleased());
         Sleep(500);

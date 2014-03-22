@@ -2,10 +2,24 @@
 #include "constants.h"
 #include "drivefunctions.h"
 
+#define DISTANCE_1 3.0
+#define DISTANCE_2 9.0
+#define DISTANCE_3 1.0
+
 Button::Button()
 {
 }
 
-void Run() {
-    //Code to run the button sequence here
+void Button::Run() {
+    forklift.SetDegree(BUTTON_ANGLE);
+    drive(FORWARD_POWER, DISTANCE_1, false);
+    turnToRPSHeading(0, TURN_POWER, LEFT, false);
+    drive(FORWARD_POWER, DISTANCE_2, false);
+    turnToRPSHeading(90, TURN_POWER, LEFT, false);
+    while (wonka.OvenPressed() < wonka.Oven()) {
+        //Press button
+        driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 10);
+        drive(-1 * FORWARD_POWER, DISTANCE_3, false);
+    }
+    turn(false, TURN_POWER, 180, false);
 }

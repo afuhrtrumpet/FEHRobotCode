@@ -6,3 +6,9 @@ drivefunctions.cpp
 constants.cpp
 button.h
 button.cpp
+otherfunctions.cpp
+otherfunctions.h
+switch.h
+switch.cpp
+skid.h
+skid.cpp

@@ -29,29 +29,33 @@
 #define LEFT 1
 #define RIGHT 2
 //Constants representing switches
-#define FORKLIFT_SWITCH 0
+#define FRONT_SWITCH 0
 #define BACK_SWITCH 1
 
 //Encoding methods check if motors are going the same amount at every multiple of this number of count
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.1
+#define LEFT_MODIFIER 1.05
 
-//Light thresholds
-#define NO_LIGHT_THRESHOLD 1
-#define RED_BLUE_THRESHOLD 0.7
+//Light must below this value to start
+#define LIGHT_START_THRESHOLD 2.0
+//Defined difference between red and blue light
+#define RED_BLUE_THRESHOLD 1.2
 
 #define TIMEOUT_DISTANCE 40
 
-//Light must below this value to start
-#define LIGHT_START_THRESHOLD 1.2
+//Power going up ramp
+#define RAMP_POWER 127
+//Power going down ramp
+#define RAMP_DOWN_POWER 70
 //Power normally used when driving forward
 #define FORWARD_POWER 100
 //Power normally used when turning
-#define TURN_POWER 80
+#define TURN_POWER 90
+
 //Angle forklift is placed to start
-#define START_ANGLE 0
+#define START_ANGLE 30
 //Angle of forklift that makes it horizontal
 #define HORIZONTAL 125
 //Angle of forklift used to pull out the pin
@@ -60,9 +64,37 @@
 #define SKID_ANGLE 20
 //Angle when dropping off skid
 #define DROP_OFF_ANGLE 135
+//Angle when flipping switch
+#define SWITCH_ANGLE 65
+//Angle when pressing button
+#define BUTTON_ANGLE 45
+
+//Starting angle of door
+#define DOOR_CLOSED 100
+#define DOOR_OPEN 30
+
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 5
-#define COUNTS_PER_DEGREE 0.45
+#define COUNTS_PER_DEGREE_LEFT 0.53
+#define COUNTS_PER_DEGREE_RIGHT 0.53
+
+//Light position on course
+#define LIGHT_X 0.0
+#define LIGHT_Y 20.5
+
+//Constants for light reading result
+#define NO_LIGHT 0
+#define BLUE 1
+#define RED 2
+
+//Distance robot will move to adjust to get to the light it is not on the light
+#define ADJUST_DISTANCE 1.0
+
+//Used to account for RPS delay at the end
+#define RPS_CORRECTION_DISTANCE 3.5
+
+//RPS distance tolerance
+#define RPS_TOLERANCE 0.5
 
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;
@@ -72,15 +104,19 @@ extern float blackLeft;
 extern float blackCenter;
 extern float blackRight;
 
+extern float lightX;
+extern float lightY;
+
 extern ButtonBoard buttons;
 extern AnalogInputPin photosensor;
 extern FEHMotor left;
 extern FEHMotor right;
 extern FEHServo forklift;
+extern FEHServo door;
 extern AnalogInputPin leftopto;
 extern AnalogInputPin centeropto;
 extern AnalogInputPin rightopto;
-extern DigitalInputPin forkliftSwitch;
+extern DigitalInputPin frontSwitch;
 extern DigitalInputPin backSwitch;
 extern FEHEncoder leftencoder;
 extern FEHEncoder rightencoder;
