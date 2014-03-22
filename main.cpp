@@ -10,6 +10,7 @@
 #include "button.h"
 #include "switch.h"
 #include "skid.h"
+#include "scoop.h"
 
 int main(void)
 {
@@ -42,7 +43,8 @@ int main(void)
 
         Button::Run();
         Switch::Run();
-        Skid::Run();
+        int lightState = Skid::Run();
+        Scoop::Run(lightState);
 
         /* END MAIN SEQUENCE OF EVENTS */
 

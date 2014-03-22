@@ -2,8 +2,8 @@
 #include "constants.h"
 #include "drivefunctions.h"
 
-#define DISTANCE_1 3.0
-#define DISTANCE_2 9.0
+#define DISTANCE_1 6.0
+#define DISTANCE_2 6.5
 #define DISTANCE_3 1.0
 
 Button::Button()
@@ -21,5 +21,5 @@ void Button::Run() {
         driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 10);
         drive(-1 * FORWARD_POWER, DISTANCE_3, false);
     }
-    turn(false, TURN_POWER, 180, false);
+    turnToRPSHeading(0, TURN_POWER, RIGHT, false);
 }

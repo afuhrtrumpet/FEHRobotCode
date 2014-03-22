@@ -58,9 +58,9 @@ void driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
     rightencoder.ResetCounts();
     left.SetPower(power * LEFT_MODIFIER);
     right.SetPower(power);
-    while ((switchId == FRONT_SWITCH && frontSwitch.Value()) || switchId == BACK_SWITCH && backSwitch.Value() && leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH) {}
-    left.SetPower(0);
-    right.SetPower(0);
+    while (((switchId == FRONT_SWITCH && frontSwitch.Value()) || (switchId == BACK_SWITCH && backSwitch.Value())) && leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
+    left.Stop();
+    right.Stop();
 }
 
 void driveUntilLight(float power, bool encodingCorrection) {

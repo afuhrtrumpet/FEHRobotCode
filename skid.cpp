@@ -2,19 +2,20 @@
 #include "drivefunctions.h"
 #include "constants.h"
 
-#define DISTANCE_1 12.0
+#define DISTANCE_1 10
 #define DISTANCE_2 28
 #define DISTANCE_3 2
 #define DISTANCE_4 9
-#define DISTANCE_5 30
-#define DISTANCE_6 20
+#define DISTANCE_5 40
+#define DISTANCE_6 40
 
 Skid::Skid()
 {
 }
 
-void Skid::Run() {
-    turnToRPSHeading(90, TURN_POWER, RIGHT, false);
+int Skid::Run() {
+    drive(FORWARD_POWER, DISTANCE_1, false);
+    turnToRPSHeading(0, TURN_POWER, LEFT, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 40);
     forklift.SetDegree(HORIZONTAL);
     drive(FORWARD_POWER, DISTANCE_2, false);
@@ -33,7 +34,8 @@ void Skid::Run() {
     drive(FORWARD_POWER, DISTANCE_4, false);
     //Turn and drive forwards down ramp
     turnToRPSHeading(0, TURN_POWER, LEFT, true);
-    drive(FORWARD_POWER, DISTANCE_5, false);
+    int lightState = driveAndReadLight(FORWARD_POWER, DISTANCE_5, false);
+    driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 30);
     //Turn and drive to hit wall in shop
     turnToRPSHeading(90, TURN_POWER, LEFT, true);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 20);
@@ -45,4 +47,5 @@ void Skid::Run() {
     forklift.SetDegree(DROP_OFF_ANGLE);
     //Drive to chiller
     drive(FORWARD_POWER, DISTANCE_6, false);
+    return lightState;
 }

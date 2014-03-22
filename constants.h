@@ -36,7 +36,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.05
+#define LEFT_MODIFIER 1.00
 
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 2.0
@@ -75,8 +75,8 @@
 
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 5
-#define COUNTS_PER_DEGREE_LEFT 0.53
-#define COUNTS_PER_DEGREE_RIGHT 0.53
+#define COUNTS_PER_DEGREE_LEFT 0.493
+#define COUNTS_PER_DEGREE_RIGHT 0.518
 
 //Light position on course
 #define LIGHT_X 0.0
@@ -118,6 +118,7 @@ extern AnalogInputPin centeropto;
 extern AnalogInputPin rightopto;
 extern DigitalInputPin frontSwitch;
 extern DigitalInputPin backSwitch;
+extern DigitalInputPin rightSwitch;
 extern FEHEncoder leftencoder;
 extern FEHEncoder rightencoder;
 extern FEHWONKA wonka;

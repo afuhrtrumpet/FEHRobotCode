@@ -12,3 +12,5 @@ switch.h
 switch.cpp
 skid.h
 skid.cpp
+scoop.h
+scoop.cpp

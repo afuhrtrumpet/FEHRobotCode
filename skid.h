@@ -5,7 +5,7 @@ class Skid
 {
 public:
     Skid();
-    static void Run();
+    static int Run();
 };
 
 #endif // SKID_H
