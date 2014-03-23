@@ -58,7 +58,10 @@ void driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
     rightencoder.ResetCounts();
     left.SetPower(power * LEFT_MODIFIER);
     right.SetPower(power);
-    while (((switchId == FRONT_SWITCH && frontSwitch.Value()) || (switchId == BACK_SWITCH && backSwitch.Value())) && leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
+    while (((switchId == FRONT_SWITCH && frontSwitch.Value()) ||
+            (switchId == BACK_SWITCH && backSwitch.Value()) ||
+            (switchId == RIGHT_SWITCH && rightSwitch.Value())) &&
+           leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
     left.Stop();
     right.Stop();
 }
@@ -103,6 +106,51 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
     //drive(FORWARD_POWER * (direction ? -1 : 1), RPS_CORRECTION_DISTANCE, false);
     left.Stop();
     right.Stop();
+}
+
+void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
+    bool direction; //true if forward
+    while (y && (facingIncreasingDirection && wonka.Y() < coordinate || !facingIncreasingDirection && wonka.Y() > coordinate) ||
+           !y && (facingIncreasingDirection && wonka.X() < coordinate || !facingIncreasingDirection && wonka.X() > coordinate)) {
+        left.SetPower(power);
+        right.SetPower(power);
+        LCD.Write("RPS X: ");
+        LCD.WriteLine(wonka.X());
+        LCD.Write("RPS Y: ");
+        LCD.WriteLine(wonka.Y());
+    }
+    //drive(FORWARD_POWER * (direction ? -1 : 1), RPS_CORRECTION_DISTANCE, false);
+    left.Stop();
+    right.Stop();
+}
+
+
+void driveAgainstWall(float power, float distance, bool rightSide) {
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+    while (leftencoder.Counts() < distance * COUNTS_PER_INCH) {
+            if (rightSide) {
+                if (rightSwitch.Value()) {
+                    right.SetPower(power / 2);
+                } else {
+                    right.SetPower(power);
+                }
+            }
+            else {
+                if (false) {
+                    left.SetPower(power / 2);
+                } else {
+                    left.SetPower(power);
+                }
+            }
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        Sleep(50);
+    }
+    left.SetPower(0);
+    right.SetPower(0);
 }
 
 void turn(bool isRight, float power, int degrees, bool withSkid) {
@@ -166,6 +214,75 @@ void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid) {
         break;
     }
 }
+
+void followLine(float power, float distance, bool yellow) {
+    int state = LINE_NOT_SEEN;
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+
+    while(leftencoder.Counts() < distance * COUNTS_PER_INCH)
+    {
+        if ((yellow && centeropto.Value() < yellowCenter) || (!yellow && centeropto.Value() > blackCenter)) {
+            setToForward(true);
+            if (state == LINE_ON_RIGHT) {
+                state = ON_LINE_FIRST;
+            } else if (state == LINE_ON_LEFT) {
+                state = ON_LINE_SECOND;
+            }
+        } else if ((yellow && leftopto.Value() < yellowLeft) || (!yellow && leftopto.Value() > blackLeft)) {
+            setToTurn(true);
+            state = LINE_ON_LEFT;
+        } else if ((yellow && rightopto.Value() < yellowRight) || (!yellow && rightopto.Value() > blackRight)) {
+            setToTurn(false);
+            state = LINE_ON_RIGHT;
+        } else {
+            switch (state) {
+            case LINE_ON_LEFT:
+                setToTurn(true);
+                break;
+            case ON_LINE_FIRST:
+                state = LINE_ON_RIGHT;
+                setToTurn(false);
+                break;
+            case LINE_ON_RIGHT:
+                setToTurn(false);
+                break;
+            case ON_LINE_SECOND:
+                state = LINE_ON_LEFT;
+                setToTurn(true);
+                break;
+            case LINE_NOT_SEEN:
+                setToForward(true);
+                break;
+            }
+        }
+        LCD.Clear();
+        switch (state) {
+        case LINE_ON_LEFT:
+            LCD.WriteLine("Line on the left");
+            break;
+        case ON_LINE_FIRST:
+            LCD.WriteLine("On line, going right");
+            break;
+        case LINE_ON_RIGHT:
+            LCD.WriteLine("Line on the right");
+            break;
+        case ON_LINE_SECOND:
+            LCD.WriteLine("On light, going left");
+            break;
+        }
+        LCD.Write("Left opto value: ");
+        LCD.WriteLine(leftopto.Value());
+        LCD.Write("Center opto value: ");
+        LCD.WriteLine(centeropto.Value());
+        LCD.Write("Right opto value: ");
+        LCD.WriteLine(rightopto.Value());
+        Sleep(50);
+    }
+    left.SetPower(0);
+    right.SetPower(0);
+}
+
 
 void followLineUntilSwitchPress(float power, int switchId, bool yellow) {
     int state = LINE_ON_RIGHT;
@@ -243,9 +360,9 @@ void setToForward(bool forward) {
 void setToTurn (bool isLeft) {
     if (isLeft) {
         right.SetPower(TURN_POWER);
-        left.SetPower(0);
+        left.SetPower(TURN_POWER / 2);
     } else {
         left.SetPower(TURN_POWER * LEFT_MODIFIER);
-        right.SetPower(0);
+        right.SetPower(TURN_POWER * LEFT_MODIFIER / 2);
     }
 }

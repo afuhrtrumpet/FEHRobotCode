@@ -29,6 +29,7 @@ AnalogInputPin rightopto(FEHIO::P2_4);
 DigitalInputPin frontSwitch(FEHIO::P2_0);
 DigitalInputPin backSwitch(FEHIO::P1_7);
 DigitalInputPin rightSwitch(FEHIO::P0_7);
+DigitalInputPin stopSwitch(FEHIO::P2_7);
 FEHEncoder leftencoder(FEHIO::P0_0);
 FEHEncoder rightencoder(FEHIO::P0_1);
 FEHWONKA wonka;

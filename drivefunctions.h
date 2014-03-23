@@ -18,8 +18,17 @@ void driveUntilLight(float power, bool encodingCorrection);
 //Drive to the specified RPS heading
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection);
 
+//Drive past the specified RPS coordinate
+void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection);
+
+//Uses side switches to keep robot against a wall while driving
+void driveAgainstWall(float power, float distance, bool rightSide);
+
 //Turns the robot using shaft encoding; set withSkid to true if the robot is holding the skid during this turn
 void turn(bool isRight, float power, int degrees, bool withSkid);
+
+//Follows line for a specified distance
+void followLine(float power, float distance, bool yellow);
 
 //Follows a line (yellow line if yellow is true) until the switch specified by switchId is triggered
 void followLineUntilSwitchPress(float power, int switchId, bool yellow);

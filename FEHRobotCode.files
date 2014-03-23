@@ -14,3 +14,7 @@ skid.h
 skid.cpp
 scoop.h
 scoop.cpp
+pin.h
+pin.cpp
+charger.h
+charger.cpp

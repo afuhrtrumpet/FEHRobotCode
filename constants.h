@@ -20,6 +20,8 @@
 #define LINE_ON_LEFT 2
 //On line, but moving left
 #define ON_LINE_SECOND 3
+//Initial state of line following
+#define LINE_NOT_SEEN 4
 
 //Acceptable degrees of error in turn to RPS method
 #define ANGLE_TOLERANCE 1.0
@@ -31,17 +33,18 @@
 //Constants representing switches
 #define FRONT_SWITCH 0
 #define BACK_SWITCH 1
+#define RIGHT_SWITCH 2
 
 //Encoding methods check if motors are going the same amount at every multiple of this number of count
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.00
+#define LEFT_MODIFIER 1.05
 
 //Light must below this value to start
-#define LIGHT_START_THRESHOLD 2.0
+#define LIGHT_START_THRESHOLD 1.8
 //Defined difference between red and blue light
-#define RED_BLUE_THRESHOLD 1.2
+#define RED_BLUE_THRESHOLD 1.3
 
 #define TIMEOUT_DISTANCE 40
 
@@ -61,9 +64,9 @@
 //Angle of forklift used to pull out the pin
 #define PIN_ANGLE 30
 //Angle to move to when lifting up skid
-#define SKID_ANGLE 20
+#define SKID_ANGLE 10
 //Angle when dropping off skid
-#define DROP_OFF_ANGLE 135
+#define DROP_OFF_ANGLE 125
 //Angle when flipping switch
 #define SWITCH_ANGLE 65
 //Angle when pressing button
@@ -119,6 +122,7 @@ extern AnalogInputPin rightopto;
 extern DigitalInputPin frontSwitch;
 extern DigitalInputPin backSwitch;
 extern DigitalInputPin rightSwitch;
+extern DigitalInputPin stopSwitch;
 extern FEHEncoder leftencoder;
 extern FEHEncoder rightencoder;
 extern FEHWONKA wonka;

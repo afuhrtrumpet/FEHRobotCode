@@ -15,7 +15,7 @@
  Drivers/adc16.h Libraries/FEHUtility.h Libraries/FEHMotor.h \
  Libraries/FEHServo.h Libraries/FEHWONKA.h Drivers/FEHXBee.h \
  ..\/constants.h ..\/drivefunctions.h ..\/otherfunctions.h ..\/button.h \
- ..\/switch.h ..\/skid.h ..\/scoop.h
+ ..\/switch.h ..\/skid.h ..\/scoop.h ..\/pin.h ..\/charger.h
 
 R:\fehqt\Proteus/EWL/EWL_C++/include/lib_ewl_c++.prefix:
 
@@ -74,3 +74,7 @@ Drivers/FEHXBee.h:
 ..\/skid.h:
 
 ..\/scoop.h:
+
+..\/pin.h:
+
+..\/charger.h:

@@ -64,6 +64,84 @@ void calibrateLightPosition() {
     Sleep(50);
 }
 
+void calibrateEncoders() {
+    LCD.WriteLine("Press left button to calibrate left turning, right button to calibrate right turning, middle button to calibrate straight driving.");
+    while (!buttons.LeftPressed() && !buttons.RightPressed() && !buttons.MiddlePressed());
+    if (buttons.LeftPressed()) {
+        while (!buttons.LeftReleased());
+        LCD.Clear();
+        LCD.WriteLine("Press the switch after 4 revolutions.");
+        LCD.WriteLine("Press the middle button to begin.");
+        while (!buttons.MiddlePressed());
+        while (!buttons.MiddleReleased());
+        left.SetPower(-TURN_POWER);
+        right.SetPower(TURN_POWER);
+        leftencoder.ResetCounts();
+        rightencoder.ResetCounts();
+        while (stopSwitch.Value());
+        LCD.Clear();
+        left.Stop();
+        right.Stop();
+        LCD.Write("The left encoder total was ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The right encoder total was ");
+        LCD.WriteLine(rightencoder.Counts());
+        LCD.Write("The left counts per degree was ");
+        LCD.WriteLine(leftencoder.Counts() / (4 * 360.0));
+        LCD.Write("The right counts per degree was ");
+        LCD.WriteLine(rightencoder.Counts() / (4 * 360.0));
+    } else if (buttons.RightPressed()) {
+        while (!buttons.RightReleased());
+        LCD.Clear();
+        LCD.WriteLine("Press the switch after 4 revolutions.");
+        LCD.WriteLine("Press the middle button to begin.");
+        while (!buttons.MiddlePressed());
+        while (!buttons.MiddleReleased());
+        left.SetPower(TURN_POWER);
+        right.SetPower(-TURN_POWER);
+        leftencoder.ResetCounts();
+        rightencoder.ResetCounts();
+        while (stopSwitch.Value());
+        LCD.Clear();
+        left.Stop();
+        right.Stop();
+        LCD.Write("The left encoder total was ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The right encoder total was ");
+        LCD.WriteLine(rightencoder.Counts());
+        LCD.Write("The left counts per degree was ");
+        LCD.WriteLine(leftencoder.Counts() / (4 * 360.0));
+        LCD.Write("The right counts per degree was ");
+        LCD.WriteLine(rightencoder.Counts() / (4 * 360.0));
+    } else {
+        while (!buttons.MiddleReleased());
+        LCD.Clear();
+        LCD.WriteLine("Press the switch after 3 feet.");
+        LCD.WriteLine("Press the middle button to begin.");
+        while (!buttons.MiddlePressed());
+        while (!buttons.MiddleReleased());
+        left.SetPower(TURN_POWER);
+        right.SetPower(TURN_POWER);
+        leftencoder.ResetCounts();
+        rightencoder.ResetCounts();
+        while (stopSwitch.Value());
+        LCD.Clear();
+        left.Stop();
+        right.Stop();
+        LCD.Write("The left encoder total was ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The right encoder total was ");
+        LCD.WriteLine(rightencoder.Counts());
+        LCD.Write("The left counts per inch was ");
+        LCD.WriteLine(leftencoder.Counts() / (36.0));
+        LCD.Write("The right counts per degree was ");
+        LCD.WriteLine(rightencoder.Counts() / (36.0));
+    }
+    LCD.WriteLine("Press the middle button to end again.");
+    while (!buttons.MiddlePressed());
+    while (!buttons.MiddleReleased());
+}
+
 int readLight() {
     LCD.Clear();
     LCD.Write("Photosensor value is ");

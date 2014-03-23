@@ -17,9 +17,14 @@ void Button::Run() {
     drive(FORWARD_POWER, DISTANCE_2, false);
     turnToRPSHeading(90, TURN_POWER, LEFT, false);
     while (wonka.OvenPressed() < wonka.Oven()) {
+        int previousPresses = wonka.OvenPressed();
         //Press button
-        driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 10);
+        driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 7);
         drive(-1 * FORWARD_POWER, DISTANCE_3, false);
+        //If the button was not pressed
+        if (previousPresses == wonka.OvenPressed()) {
+            turnToRPSHeading(90, TURN_POWER, CLOSEST, false);
+        }
     }
     turnToRPSHeading(0, TURN_POWER, RIGHT, false);
 }

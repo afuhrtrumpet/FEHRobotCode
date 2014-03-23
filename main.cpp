@@ -11,6 +11,8 @@
 #include "switch.h"
 #include "skid.h"
 #include "scoop.h"
+#include "pin.h"
+#include "charger.h"
 
 int main(void)
 {
@@ -22,13 +24,18 @@ int main(void)
 
     while (true) {
         //Display options and wait for user to select an option
-        LCD.WriteLine("Press the left button to calibrate optosensors or the middle button to start.");
-        while (!buttons.LeftPressed() && !buttons.MiddlePressed());
+        LCD.Clear();
+        LCD.WriteLine("Press the left button to calibrate optosensors, the right button to calibrate encoders, or the middle button to start.");
+        while (!buttons.LeftPressed() && !buttons.MiddlePressed() && !buttons.RightPressed());
         if (buttons.MiddlePressed()) {
             while (!buttons.MiddleReleased());
-        } else {
+        } else if (buttons.LeftPressed()) {
             while (!buttons.LeftReleased());
-            calibrateOptosensors(false);
+            calibrateOptosensors(true);
+            continue;
+        } else {
+            while (!buttons.RightReleased());
+            calibrateEncoders();
             continue;
         }
 
@@ -45,6 +52,8 @@ int main(void)
         Switch::Run();
         int lightState = Skid::Run();
         Scoop::Run(lightState);
+        Pin::Run();
+        Charger::Run();
 
         /* END MAIN SEQUENCE OF EVENTS */
 

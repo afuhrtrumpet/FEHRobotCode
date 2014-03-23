@@ -10,6 +10,9 @@ void calibrateOptosensors(bool yellow);
 //Gets RPS coordinates of light
 void calibrateLightPosition();
 
+//Calibrate encoding
+void calibrateEncoders();
+
 //Returns an int based on whether the robot detects no light, red light, or blue light
 int readLight();
 
