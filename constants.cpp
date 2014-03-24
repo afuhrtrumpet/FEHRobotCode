@@ -7,14 +7,17 @@
 #include "constants.h"
 
 //Default thresholds for optosensors (probably wrong)
-float yellowLeft = .242;
-float yellowCenter = 2.463;
-float yellowRight = 1.103;
+float yellowLeft = YELLOW_LEFT;
+float yellowCenter = YELLOW_CENTER;
+float yellowRight = YELLOW_RIGHT;
 float blackLeft;
 float blackCenter;
 float blackRight;
 float lightX = LIGHT_X;
 float lightY = LIGHT_Y;
+
+float countsPerDegreeLeft = COUNTS_PER_DEGREE_LEFT;
+float countsPerDegreeRight = COUNTS_PER_DEGREE_RIGHT;
 
 //Sensors and motors
 ButtonBoard buttons( FEHIO::Bank3 );

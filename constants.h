@@ -99,6 +99,10 @@
 //RPS distance tolerance
 #define RPS_TOLERANCE 0.5
 
+#define YELLOW_LEFT .242
+#define YELLOW_RIGHT 1.103
+#define YELLOW_CENTER 2.463
+
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;
 extern float yellowCenter;
@@ -109,6 +113,9 @@ extern float blackRight;
 
 extern float lightX;
 extern float lightY;
+
+extern float countsPerDegreeLeft;
+extern float countsPerDegreeRight;
 
 extern ButtonBoard buttons;
 extern AnalogInputPin photosensor;

@@ -162,7 +162,7 @@ void turn(bool isRight, float power, int degrees, bool withSkid) {
     }
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
-    while (leftencoder.Counts() < degrees * (isRight ? COUNTS_PER_DEGREE_RIGHT : COUNTS_PER_DEGREE_LEFT) / (withSkid ? 1.0 : 1.0)) {
+    while (leftencoder.Counts() < degrees * (isRight ? countsPerDegreeRight : countsPerDegreeLeft) / (withSkid ? 1.0 : 1.0)) {
         LCD.Clear();
         LCD.Write("The value of the left encoder is ");
         LCD.WriteLine(leftencoder.Counts());
@@ -377,8 +377,8 @@ void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle) {
         left.SetPower(power * LEFT_MODIFIER);
     }
     while (!wonka.Chute() &&
-                    (isRight && leftencoder.Counts() < timeoutAngle * COUNTS_PER_DEGREE_LEFT ||
-                     !isRight && leftencoder.Counts() < timeoutAngle * COUNTS_PER_DEGREE_RIGHT)) {
+                    (isRight && leftencoder.Counts() < timeoutAngle * countsPerDegreeLeft ||
+                     !isRight && leftencoder.Counts() < timeoutAngle * countsPerDegreeRight)) {
         LCD.Clear();
         LCD.Write("The value of the left encoder is ");
         LCD.WriteLine(leftencoder.Counts());

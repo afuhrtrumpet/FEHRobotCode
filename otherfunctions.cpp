@@ -110,6 +110,7 @@ void calibrateEncoders() {
         LCD.WriteLine(leftencoder.Counts() / (4 * 360.0));
         LCD.Write("The right counts per degree was ");
         LCD.WriteLine(rightencoder.Counts() / (4 * 360.0));
+        countsPerDegreeLeft = leftencoder.Counts() / (4 * 360.0);
     } else if (buttons.RightPressed()) {
         while (!buttons.RightReleased());
         LCD.Clear();
@@ -133,6 +134,7 @@ void calibrateEncoders() {
         LCD.WriteLine(leftencoder.Counts() / (4 * 360.0));
         LCD.Write("The right counts per degree was ");
         LCD.WriteLine(rightencoder.Counts() / (4 * 360.0));
+        countsPerDegreeRight = leftencoder.Counts() / (4 * 360.0);
     } else {
         while (!buttons.MiddleReleased());
         LCD.Clear();
