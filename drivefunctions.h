@@ -36,6 +36,9 @@ void followLineUntilSwitchPress(float power, int switchId, bool yellow);
 //Turns the robot to face the RPS heading specified by degree. Turn options are LEFT, RIGHT, and CLOSEST
 void turnToRPSHeading(int degree, float power, int turnOption, bool withSkid);
 
+//Turns the robot until wonka records switch press, or until timeout is triggered
+void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle);
+
 void setToForward(bool);
 void setToTurn(bool);
 

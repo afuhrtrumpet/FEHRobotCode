@@ -39,7 +39,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.05
+#define LEFT_MODIFIER 1.1
 
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.8
@@ -68,7 +68,7 @@
 //Angle when dropping off skid
 #define DROP_OFF_ANGLE 125
 //Angle when flipping switch
-#define SWITCH_ANGLE 65
+#define SWITCH_ANGLE 75
 //Angle when pressing button
 #define BUTTON_ANGLE 45
 
@@ -77,9 +77,9 @@
 #define DOOR_OPEN 30
 
 //Constants used to determine distances/angles by the encoders
-#define COUNTS_PER_INCH 5
-#define COUNTS_PER_DEGREE_LEFT 0.493
-#define COUNTS_PER_DEGREE_RIGHT 0.518
+#define COUNTS_PER_INCH 4.5
+#define COUNTS_PER_DEGREE_LEFT 0.457
+#define COUNTS_PER_DEGREE_RIGHT 0.45
 
 //Light position on course
 #define LIGHT_X 0.0

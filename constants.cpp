@@ -7,9 +7,9 @@
 #include "constants.h"
 
 //Default thresholds for optosensors (probably wrong)
-float yellowLeft = 0.5;
-float yellowCenter = 2.7;
-float yellowRight = 2.45;
+float yellowLeft = .242;
+float yellowCenter = 2.463;
+float yellowRight = 1.103;
 float blackLeft;
 float blackCenter;
 float blackRight;

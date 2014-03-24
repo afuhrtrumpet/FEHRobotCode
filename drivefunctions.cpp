@@ -109,7 +109,6 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
 }
 
 void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
-    bool direction; //true if forward
     while (y && (facingIncreasingDirection && wonka.Y() < coordinate || !facingIncreasingDirection && wonka.Y() > coordinate) ||
            !y && (facingIncreasingDirection && wonka.X() < coordinate || !facingIncreasingDirection && wonka.X() > coordinate)) {
         left.SetPower(power);
@@ -277,7 +276,7 @@ void followLine(float power, float distance, bool yellow) {
         LCD.WriteLine(centeropto.Value());
         LCD.Write("Right opto value: ");
         LCD.WriteLine(rightopto.Value());
-        Sleep(50);
+        Sleep(25);
     }
     left.SetPower(0);
     right.SetPower(0);
@@ -364,5 +363,28 @@ void setToTurn (bool isLeft) {
     } else {
         left.SetPower(TURN_POWER * LEFT_MODIFIER);
         right.SetPower(TURN_POWER * LEFT_MODIFIER / 2);
+    }
+}
+
+void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle) {
+    rightencoder.ResetCounts();
+    leftencoder.ResetCounts();
+    if (!isRight) {
+        right.SetPower(power);
+        left.SetPower(-1 * power * LEFT_MODIFIER);
+    } else {
+        right.SetPower(-1 * power);
+        left.SetPower(power * LEFT_MODIFIER);
+    }
+    while (!wonka.Chute() &&
+                    (isRight && leftencoder.Counts() < timeoutAngle * COUNTS_PER_DEGREE_LEFT ||
+                     !isRight && leftencoder.Counts() < timeoutAngle * COUNTS_PER_DEGREE_RIGHT)) {
+        LCD.Clear();
+        LCD.Write("The value of the left encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        Sleep(50);
+
     }
 }

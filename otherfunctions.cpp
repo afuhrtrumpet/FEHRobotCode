@@ -31,15 +31,35 @@ void calibrateOptosensors(bool yellow) {
     while (!buttons.MiddleReleased());
     float centerOn = centeropto.Value();
     //Update thresholds
+    LCD.Clear();
     if (yellow) {
         yellowLeft = (leftOff + leftOn) / 2;
         yellowRight = (rightOff + rightOn) / 2;
         yellowCenter = (centerOff + centerOn) / 2;
+        LCD.WriteLine("Yellow Line");
+        LCD.WriteLine("==========");
+        LCD.Write("The new left threshold was set to ");
+        LCD.WriteLine(yellowLeft);
+        LCD.Write("The new right threshold was set to ");
+        LCD.WriteLine(yellowRight);
+        LCD.Write("The new center threshold was set to ");
+        LCD.WriteLine(yellowCenter);
     } else {
         blackLeft = (leftOff + leftOn) / 2;
         blackRight = (rightOff + rightOn) / 2;
         blackCenter = (centerOff + centerOn) / 2;
+        LCD.WriteLine("Black Line");
+        LCD.WriteLine("==========");
+        LCD.Write("The new left threshold was set to ");
+        LCD.WriteLine(blackLeft);
+        LCD.Write("The new right threshold was set to ");
+        LCD.WriteLine(blackRight);
+        LCD.Write("The new center threshold was set to");
+        LCD.WriteLine(blackCenter);
     }
+    LCD.WriteLine("Press the middle button to continue.");
+    while (!buttons.MiddlePressed());
+    while (!buttons.MiddleReleased());
     Sleep(500);
 }
 

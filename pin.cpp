@@ -4,8 +4,8 @@
 
 #define DISTANCE_1 40
 #define DISTANCE_2 10
-#define DISTANCE_3 8
-#define DISTANCE_4 20
+#define DISTANCE_3 5
+#define DISTANCE_4 18
 
 Pin::Pin()
 {
@@ -19,6 +19,7 @@ void Pin::Run() {
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10);
     drive(FORWARD_POWER, DISTANCE_3, false);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false);
+    Sleep(250);
     turnToRPSHeading(90, TURN_POWER, CLOSEST, false);
     forklift.SetDegree(HORIZONTAL);
     followLine(FORWARD_POWER, DISTANCE_4, false);

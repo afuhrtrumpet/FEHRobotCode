@@ -5,7 +5,7 @@
 #define DISTANCE_1 9
 #define DISTANCE_2 28
 #define DISTANCE_3 2
-#define DISTANCE_4 9
+#define DISTANCE_4 7
 #define DISTANCE_5 40
 #define DISTANCE_6 30
 
@@ -14,13 +14,20 @@ Skid::Skid()
 }
 
 int Skid::Run() {
-    drive(FORWARD_POWER, DISTANCE_1, false);
+    while (!buttons.MiddlePressed()) {
+        LCD.Clear();
+        LCD.Write("RPS X is ");
+        LCD.WriteLine(wonka.X());
+        Sleep(50);
+    }
+    while (!buttons.MiddleReleased());
+    drivePastRPSCoordinate(FORWARD_POWER, 1, false, true);
+    //drive(FORWARD_POWER, DISTANCE_1, false);
     turnToRPSHeading(0, TURN_POWER, LEFT, false);
     Sleep(250);
     turnToRPSHeading(0, TURN_POWER, CLOSEST, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 40);
     forklift.SetDegree(HORIZONTAL);
-    //drive(FORWARD_POWER, DISTANCE_2, false);
     drive(FORWARD_POWER, 7, false);
     followLine(FORWARD_POWER, 14, true);
     //Adjust to vertical
