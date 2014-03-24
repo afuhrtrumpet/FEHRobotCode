@@ -4,7 +4,9 @@
 //Function prototypes
 
 //Drives the robot at the specified power for the specified distance (using the right encoder), and adjusts the left motor if encodingCorrection is true
-void drive(float power, float distance, bool encodingCorrection);
+//encodingCorrection: true if you want motors to adjust to equal power based on encoding (requires both encoders to work)
+//debug: true if you want robot to stop and let you set the distance, then display that distance to screen.
+void drive(float power, float distance, bool encodingCorrection, bool debug);
 
 //Same as drive method, but returns the minimum photosensor value
 float driveAndReadLight(float power, float distance, bool encodingCorrection);

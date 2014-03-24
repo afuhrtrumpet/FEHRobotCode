@@ -14,10 +14,10 @@ Pin::Pin()
 void Pin::Run() {
     drivePastRPSCoordinate(RAMP_POWER, 38, true, true);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false);
-    drive(FORWARD_POWER * -1, DISTANCE_2, false);
+    drive(FORWARD_POWER * -1, DISTANCE_2, false, false);
     turnToRPSHeading(0, TURN_POWER, LEFT, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10);
-    drive(FORWARD_POWER, DISTANCE_3, false);
+    drive(FORWARD_POWER, DISTANCE_3, false, false);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false);
     Sleep(250);
     turnToRPSHeading(90, TURN_POWER, CLOSEST, false);

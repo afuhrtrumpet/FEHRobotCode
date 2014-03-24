@@ -2,27 +2,47 @@
 #include "constants.h"
 #include "math.h"
 
-void drive(float power, float distance, bool encodingCorrection) {
-    left.SetPower(power * LEFT_MODIFIER);
-    right.SetPower(power);
-    leftencoder.ResetCounts();
-    rightencoder.ResetCounts();
-    while (leftencoder.Counts() < distance * COUNTS_PER_INCH) {
-        if (leftencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
-            //Look at encoder counts and adjust right motor based on results
-            if (leftencoder.Counts() != 0) {
-                left.SetPower(power * leftencoder.Counts() / leftencoder.Counts());
-            }
-        }
+void drive(float power, float distance, bool encodingCorrection, bool debug) {
+    if (debug) {
+        leftencoder.ResetCounts();
+        rightencoder.ResetCounts();
+        LCD.WriteLine("Press the middle button to begin moving.");
+        while (!buttons.MiddlePressed());
+        while (!buttons.MiddleReleased());
+        left.SetPower(power * LEFT_MODIFIER);
+        right.SetPower(power);
+        while (!buttons.MiddlePressed());
+        while (!buttons.MiddleReleased());
+        left.Stop();
+        right.Stop();
         LCD.Clear();
-        LCD.Write("The value of the left encoder is ");
-        LCD.WriteLine(leftencoder.Counts());
-        LCD.Write("The value of the right encoder is ");
-        LCD.WriteLine(leftencoder.Counts());
-        Sleep(50);
+        LCD.Write("The distance traveled was ");
+        LCD.WriteLine(leftencoder.Counts() * COUNTS_PER_INCH);
+        LCD.WriteLine("Press the middle button to resume.");
+        while (!buttons.MiddlePressed());
+        while (!buttons.MiddlePressed());
+    } else {
+        left.SetPower(power * LEFT_MODIFIER);
+        right.SetPower(power);
+        leftencoder.ResetCounts();
+        rightencoder.ResetCounts();
+        while (leftencoder.Counts() < distance * COUNTS_PER_INCH) {
+            if (leftencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
+                //Look at encoder counts and adjust right motor based on results
+                if (leftencoder.Counts() != 0) {
+                    left.SetPower(power * leftencoder.Counts() / leftencoder.Counts());
+                }
+            }
+            LCD.Clear();
+            LCD.Write("The value of the left encoder is ");
+            LCD.WriteLine(leftencoder.Counts());
+            LCD.Write("The value of the right encoder is ");
+            LCD.WriteLine(leftencoder.Counts());
+            Sleep(50);
+        }
+        left.SetPower(0);
+        right.SetPower(0);
     }
-    left.SetPower(0);
-    right.SetPower(0);
 }
 
 float driveAndReadLight(float power, float distance, bool encodingCorrection) {
@@ -61,7 +81,7 @@ void driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
     while (((switchId == FRONT_SWITCH && frontSwitch.Value()) ||
             (switchId == BACK_SWITCH && backSwitch.Value()) ||
             (switchId == RIGHT_SWITCH && rightSwitch.Value())) &&
-           leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
+                    leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
     left.Stop();
     right.Stop();
 }
@@ -110,7 +130,7 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
 
 void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
     while (y && (facingIncreasingDirection && wonka.Y() < coordinate || !facingIncreasingDirection && wonka.Y() > coordinate) ||
-           !y && (facingIncreasingDirection && wonka.X() < coordinate || !facingIncreasingDirection && wonka.X() > coordinate)) {
+                    !y && (facingIncreasingDirection && wonka.X() < coordinate || !facingIncreasingDirection && wonka.X() > coordinate)) {
         left.SetPower(power);
         right.SetPower(power);
         LCD.Write("RPS X: ");
@@ -130,20 +150,20 @@ void driveAgainstWall(float power, float distance, bool rightSide) {
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
     while (leftencoder.Counts() < distance * COUNTS_PER_INCH) {
-            if (rightSide) {
-                if (rightSwitch.Value()) {
-                    right.SetPower(power / 2);
-                } else {
-                    right.SetPower(power);
-                }
+        if (rightSide) {
+            if (rightSwitch.Value()) {
+                right.SetPower(power / 2);
+            } else {
+                right.SetPower(power);
             }
-            else {
-                if (false) {
-                    left.SetPower(power / 2);
-                } else {
-                    left.SetPower(power);
-                }
+        }
+        else {
+            if (false) {
+                left.SetPower(power / 2);
+            } else {
+                left.SetPower(power);
             }
+        }
         LCD.Write("The value of the right encoder is ");
         LCD.WriteLine(leftencoder.Counts());
         Sleep(50);

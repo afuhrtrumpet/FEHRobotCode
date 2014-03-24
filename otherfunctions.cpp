@@ -181,9 +181,9 @@ int adjustToLight() {
     while (lightState == NO_LIGHT) {
         float y = wonka.Y();
     if (y < LIGHT_Y) { //Robot is in front of light
-        drive(FORWARD_POWER * -1, ADJUST_DISTANCE, false);
+        drive(FORWARD_POWER * -1, ADJUST_DISTANCE, false, false);
     } else { //Robot is behind light
-        drive(FORWARD_POWER, ADJUST_DISTANCE, false);
+        drive(FORWARD_POWER, ADJUST_DISTANCE, false, false);
     }
         lightState = readLight();
     }

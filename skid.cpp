@@ -22,13 +22,13 @@ int Skid::Run() {
     }
     while (!buttons.MiddleReleased());
     drivePastRPSCoordinate(FORWARD_POWER, 1, false, true);
-    //drive(FORWARD_POWER, DISTANCE_1, false);
+    //drive(FORWARD_POWER, DISTANCE_1, false, false);
     turnToRPSHeading(0, TURN_POWER, LEFT, false);
     Sleep(250);
     turnToRPSHeading(0, TURN_POWER, CLOSEST, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 40);
     forklift.SetDegree(HORIZONTAL);
-    drive(FORWARD_POWER, 7, false);
+    drive(FORWARD_POWER, 7, false, false);
     followLine(FORWARD_POWER, 14, true);
     //Adjust to vertical
     turnToRPSHeading(0, TURN_POWER, CLOSEST, false);
@@ -38,10 +38,10 @@ int Skid::Run() {
     //Back up
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 30);
     Sleep(500);
-    drive(FORWARD_POWER, DISTANCE_3, false);
+    drive(FORWARD_POWER, DISTANCE_3, false, false);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 30);
     turnToRPSHeading(90, TURN_POWER, LEFT, true);
-    drive(FORWARD_POWER, DISTANCE_4, false);
+    drive(FORWARD_POWER, DISTANCE_4, false, false);
     //Turn and drive backwards down ramp
     turnToRPSHeading(0, TURN_POWER, RIGHT, true);
     //driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 30);
@@ -51,12 +51,12 @@ int Skid::Run() {
     turnToRPSHeading(90, TURN_POWER, RIGHT, true);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 20);
     //Drive away from wall and turn
-    drive(FORWARD_POWER, 2, false);
+    drive(FORWARD_POWER, 2, false, false);
     turnToRPSHeading(0, TURN_POWER, LEFT, true);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 20);
     //Set forklift to horizontal to drop off skid
     forklift.SetDegree(DROP_OFF_ANGLE);
     //Drive to chiller
-    drive(FORWARD_POWER, DISTANCE_6, false);
+    drive(FORWARD_POWER, DISTANCE_6, false, false);
     return lightState;
 }

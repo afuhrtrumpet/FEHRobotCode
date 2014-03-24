@@ -12,9 +12,9 @@ Switch::Switch()
 void Switch::Run() {
     forklift.SetDegree(START_ANGLE);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
-    drive(-1 * FORWARD_POWER, DISTANCE_2, false);
+    drive(-1 * FORWARD_POWER, DISTANCE_2, false, false);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false);
-    drive(FORWARD_POWER, DISTANCE_1, false);
+    drive(FORWARD_POWER, DISTANCE_1, false, false);
     turnToRPSHeading(0, TURN_POWER, LEFT, false);
     driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 10);
     turnToRPSHeading(135, TURN_POWER, RIGHT, false);
