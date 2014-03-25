@@ -34,6 +34,7 @@
 #define FRONT_SWITCH 0
 #define BACK_SWITCH 1
 #define RIGHT_SWITCH 2
+#define FORKLIFT_SWITCH 3
 
 //Encoding methods check if motors are going the same amount at every multiple of this number of count
 #define COUNTS_PER_CHECK 10
@@ -78,8 +79,8 @@
 
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 4.5
-#define COUNTS_PER_DEGREE_LEFT 0.457
-#define COUNTS_PER_DEGREE_RIGHT 0.45
+#define COUNTS_PER_DEGREE_LEFT 0.420
+#define COUNTS_PER_DEGREE_RIGHT 0.470
 
 //Light position on course
 #define LIGHT_X 0.0
@@ -129,6 +130,7 @@ extern AnalogInputPin rightopto;
 extern DigitalInputPin frontSwitch;
 extern DigitalInputPin backSwitch;
 extern DigitalInputPin rightSwitch;
+extern DigitalInputPin forkliftSwitch;
 extern DigitalInputPin stopSwitch;
 extern FEHEncoder leftencoder;
 extern FEHEncoder rightencoder;

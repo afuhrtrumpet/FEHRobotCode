@@ -6,21 +6,21 @@ void drive(float power, float distance, bool encodingCorrection, bool debug) {
     if (debug) {
         leftencoder.ResetCounts();
         rightencoder.ResetCounts();
-        LCD.WriteLine("Press the middle button to begin moving.");
-        while (!buttons.MiddlePressed());
-        while (!buttons.MiddleReleased());
+        LCD.WriteLine("Press the switch to begin moving.");
+        while (stopSwitch.Value());
+        while (!stopSwitch.Value());
         left.SetPower(power * LEFT_MODIFIER);
         right.SetPower(power);
-        while (!buttons.MiddlePressed());
-        while (!buttons.MiddleReleased());
+        while (stopSwitch.Value());
+        while (!stopSwitch.Value());
         left.Stop();
         right.Stop();
         LCD.Clear();
         LCD.Write("The distance traveled was ");
         LCD.WriteLine(leftencoder.Counts() * COUNTS_PER_INCH);
-        LCD.WriteLine("Press the middle button to resume.");
-        while (!buttons.MiddlePressed());
-        while (!buttons.MiddlePressed());
+        LCD.WriteLine("Press the switch to resume.");
+        while (stopSwitch.Value());
+        while (!stopSwitch.Value());
     } else {
         left.SetPower(power * LEFT_MODIFIER);
         right.SetPower(power);
@@ -73,17 +73,19 @@ float driveAndReadLight(float power, float distance, bool encodingCorrection) {
     return photoValue;
 }
 
-void driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
+bool driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
     left.SetPower(power * LEFT_MODIFIER);
     right.SetPower(power);
     while (((switchId == FRONT_SWITCH && frontSwitch.Value()) ||
             (switchId == BACK_SWITCH && backSwitch.Value()) ||
-            (switchId == RIGHT_SWITCH && rightSwitch.Value())) &&
+            (switchId == RIGHT_SWITCH && rightSwitch.Value() ||
+             (switchId == FORKLIFT_SWITCH && forkliftSwitch.Value()))) &&
                     leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
     left.Stop();
     right.Stop();
+    return leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH;
 }
 
 void driveUntilLight(float power, bool encodingCorrection) {
@@ -145,21 +147,21 @@ void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIn
 
 
 void driveAgainstWall(float power, float distance, bool rightSide) {
-    left.SetPower(power * LEFT_MODIFIER);
-    right.SetPower(power);
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
     while (leftencoder.Counts() < distance * COUNTS_PER_INCH) {
         if (rightSide) {
             if (rightSwitch.Value()) {
-                right.SetPower(power / 2);
+                right.SetPower(power * 3 / 4);
             } else {
                 right.SetPower(power);
             }
         }
         else {
             if (false) {
-                left.SetPower(power / 2);
+                left.SetPower(power * 3 / 4);
             } else {
                 left.SetPower(power);
             }
@@ -194,7 +196,7 @@ void turn(bool isRight, float power, int degrees, bool withSkid) {
     right.SetPower(0);
 }
 
-void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid) {
+void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid, float turnMultiplier) {
     float leftDistance;
     if (angle < wonka.Heading()) {
         leftDistance = 180 + angle - wonka.Heading();
@@ -220,9 +222,9 @@ void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid) {
     switch (turnOption) {
     case CLOSEST:
         if (leftDistance < rightDistance) {
-            turn(false, power, leftDistance / 4, withSkid);
+            turn(false, power, leftDistance * turnMultiplier, withSkid);
         } else {
-            turn(true, power, rightDistance / 4, withSkid);
+            turn(true, power, rightDistance * turnMultiplier, withSkid);
         }
         break;
     case LEFT:
@@ -303,11 +305,17 @@ void followLine(float power, float distance, bool yellow) {
 }
 
 
-void followLineUntilSwitchPress(float power, int switchId, bool yellow) {
-    int state = LINE_ON_RIGHT;
+void followLineUntilSwitchPress(float power, int switchId, bool yellow, float timeoutDistance) {
+    int state = LINE_NOT_SEEN;
 
-    while((switchId == FRONT_SWITCH && frontSwitch.Value()) || (switchId == BACK_SWITCH && backSwitch.Value()))
-    {
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+
+    while(((switchId == FRONT_SWITCH && frontSwitch.Value())
+           || (switchId == BACK_SWITCH && backSwitch.Value())
+           || (switchId == RIGHT_SWITCH && rightSwitch.Value())
+           || (switchId == FORKLIFT_SWITCH && forkliftSwitch.Value()))
+                    && leftencoder.Counts() < timeoutDistance * COUNTS_PER_INCH) {
         if ((yellow && centeropto.Value() < yellowCenter) || (!yellow && centeropto.Value() > blackCenter)) {
             setToForward(true);
             if (state == LINE_ON_RIGHT) {
@@ -337,6 +345,9 @@ void followLineUntilSwitchPress(float power, int switchId, bool yellow) {
                 state = LINE_ON_LEFT;
                 setToTurn(true);
                 break;
+            case LINE_NOT_SEEN:
+                setToForward(true);
+                break;
             }
         }
         LCD.Clear();
@@ -352,6 +363,9 @@ void followLineUntilSwitchPress(float power, int switchId, bool yellow) {
             break;
         case ON_LINE_SECOND:
             LCD.WriteLine("On light, going left");
+            break;
+        case LINE_NOT_SEEN:
+            LCD.WriteLine("Line not detected");
             break;
         }
         LCD.Write("Left opto value: ");

@@ -1,28 +1,40 @@
 ..\skid.d: ..\skid.cpp \
- C:\fehqt\Proteus/EWL/EWL_C++/include/lib_ewl_c++.prefix \
- C:\fehqt\Proteus/EWL/EWL_C/include/lib_ewl.prefix \
- C:\fehqt\Proteus/EWL/EWL_C/include/common.prefix \
- C:\fehqt\Proteus/EWL/EWL_C/include/ewl_c_version.h ..\/skid.h \
+ R:\fehqt\Proteus/EWL/EWL_C++/include/lib_ewl_c++.prefix \
+ R:\fehqt\Proteus/EWL/EWL_C/include/lib_ewl.prefix \
+ R:\fehqt\Proteus/EWL/EWL_C/include/common.prefix \
+ R:\fehqt\Proteus/EWL/EWL_C/include/ewl_c_version.h ..\/skid.h \
  ..\/drivefunctions.h ..\/constants.h Libraries/FEHLCD.h \
  Startup/derivative.h Startup/MK60DZ10.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/stdint.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/ansi_parms.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/ewlGlobals.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/arm/ansi_prefix.ARM.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/os_enum.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/cstdint \
- C:\fehqt\Proteus/EWL/EWL_C/include/limits_api.h \
- C:\fehqt\Proteus/EWL/EWL_C/include/ewl_lib_ext1.h Libraries/FEHIO.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/stdint.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/ansi_parms.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/ewlGlobals.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/arm/ansi_prefix.ARM.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/os_enum.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/cstdint \
+ R:\fehqt\Proteus/EWL/EWL_C/include/limits_api.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/ewl_lib_ext1.h Libraries/FEHIO.h \
  Drivers/adc16.h Libraries/FEHUtility.h Libraries/FEHMotor.h \
- Libraries/FEHServo.h Libraries/FEHWONKA.h Drivers/FEHXBee.h
+ Libraries/FEHServo.h Libraries/FEHWONKA.h Drivers/FEHXBee.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/math.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/cmath \
+ R:\fehqt\Proteus/EWL/EWL_C/include/cfloat \
+ R:\fehqt\Proteus/EWL/EWL_C/include/ewl_t.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/arm/float.ARM.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/math_api.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/ewl_misra_types.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/math_inlines.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/math_config.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/arm/math.ARM.h \
+ R:\fehqt\Proteus/EWL/EWL_C/include/cerrno \
+ R:\fehqt\Proteus/EWL/EWL_C/include/math_integral.h
 
-C:\fehqt\Proteus/EWL/EWL_C++/include/lib_ewl_c++.prefix:
+R:\fehqt\Proteus/EWL/EWL_C++/include/lib_ewl_c++.prefix:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/lib_ewl.prefix:
+R:\fehqt\Proteus/EWL/EWL_C/include/lib_ewl.prefix:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/common.prefix:
+R:\fehqt\Proteus/EWL/EWL_C/include/common.prefix:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/ewl_c_version.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/ewl_c_version.h:
 
 ..\/skid.h:
 
@@ -36,21 +48,21 @@ Startup/derivative.h:
 
 Startup/MK60DZ10.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/stdint.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/stdint.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/ansi_parms.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/ansi_parms.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/ewlGlobals.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/ewlGlobals.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/arm/ansi_prefix.ARM.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/arm/ansi_prefix.ARM.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/os_enum.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/os_enum.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/cstdint:
+R:\fehqt\Proteus/EWL/EWL_C/include/cstdint:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/limits_api.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/limits_api.h:
 
-C:\fehqt\Proteus/EWL/EWL_C/include/ewl_lib_ext1.h:
+R:\fehqt\Proteus/EWL/EWL_C/include/ewl_lib_ext1.h:
 
 Libraries/FEHIO.h:
 
@@ -65,3 +77,27 @@ Libraries/FEHServo.h:
 Libraries/FEHWONKA.h:
 
 Drivers/FEHXBee.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/math.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/cmath:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/cfloat:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/ewl_t.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/arm/float.ARM.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/math_api.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/ewl_misra_types.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/math_inlines.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/math_config.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/arm/math.ARM.h:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/cerrno:
+
+R:\fehqt\Proteus/EWL/EWL_C/include/math_integral.h:
