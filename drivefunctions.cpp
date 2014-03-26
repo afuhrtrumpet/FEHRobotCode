@@ -119,13 +119,13 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
         } else {
             direction = wonka.X() < coordinate == facingIncreasingDirection;
         }
-        setToForward(direction);
+        drive(FORWARD_POWER, ADJUST_DISTANCE, false, false);
         LCD.Write("RPS X: ");
         LCD.WriteLine(wonka.X());
         LCD.Write("RPS Y: ");
         LCD.WriteLine(wonka.Y());
+        Sleep(50);
     }
-    //drive(FORWARD_POWER * (direction ? -1 : 1), RPS_CORRECTION_DISTANCE, false);
     left.Stop();
     right.Stop();
 }
@@ -233,6 +233,13 @@ void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid, flo
     case RIGHT:
         turn(true, power, rightDistance, withSkid);
         break;
+    }
+}
+
+void turnUntilRPSHeading(int angle, float power) {
+    while (abs(angle - wonka.Heading()) > RPS_TOLERANCE) {
+        turnToRPSHeading(angle, power, CLOSEST, false, 0.25);
+        Sleep(50);
     }
 }
 

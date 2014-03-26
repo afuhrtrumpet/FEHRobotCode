@@ -91,7 +91,7 @@
 #define BLUE 1
 #define RED 2
 
-//Distance robot will move to adjust to get to the light it is not on the light
+//Distance robot will move to adjust to get to a position
 #define ADJUST_DISTANCE 1.0
 
 //Used to account for RPS delay at the end
