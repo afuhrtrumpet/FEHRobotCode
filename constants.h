@@ -50,7 +50,7 @@
 #define TIMEOUT_DISTANCE 40
 
 //Power going up ramp
-#define RAMP_POWER 110
+#define RAMP_POWER 100
 //Power going down ramp
 #define RAMP_DOWN_POWER 70
 //Power normally used when driving forward
@@ -71,7 +71,7 @@
 //Angle when dropping off skid
 #define DROP_OFF_ANGLE 125
 //Angle when flipping switch
-#define SWITCH_ANGLE 60
+#define SWITCH_ANGLE 70
 //Angle when pressing button
 #define BUTTON_ANGLE 45
 //Angle when swiping the pin
@@ -97,7 +97,7 @@
 #define RAMP_X 3.0
 #define PIN_X 10.0
 #define PIN_Y 41.5
-#define SKID_X 7.0
+#define SKID_X 6.0
 
 //Constants for light reading result
 #define NO_LIGHT 0

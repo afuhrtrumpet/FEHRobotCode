@@ -43,9 +43,11 @@ int Skid::Run() {
     //Set forklift to horizontal then move forward to pick up skid
     forklift.SetDegree(HORIZONTAL);
     //Drive forward at first past pin line, then follow skid line
-    drive(FORWARD_POWER, DISTANCE_2, false, false);
+    drive(FORWARD_POWER, DISTANCE_2 / 2, false, false);
+    turnUntilRPSHeading(0, RPS_POWER);
+    drive(FORWARD_POWER, DISTANCE_2 / 2, false, false);
     Sleep(250);
-    turnUntilRPSHeading(0, TURN_POWER);
+    turnUntilRPSHeading(175, TURN_POWER);
     //Set forklift past vertical to lift up skid
     forklift.SetDegree(SKID_ANGLE);
     //Back up, go forward, and then back up again to ensure skid is up

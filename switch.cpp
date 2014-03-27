@@ -2,7 +2,7 @@
 #include "constants.h"
 #include "drivefunctions.h"
 
-#define DISTANCE_1 12.0
+#define DISTANCE_1 8.0
 #define DISTANCE_2 .75
 
 Switch::Switch()

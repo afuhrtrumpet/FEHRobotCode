@@ -170,6 +170,7 @@ void calibrateRPS() {
     LCD.WriteLine("Place the robot facing the pin parallel to the skid.");
     LCD.Write("X: ");
     LCD.WriteLine(wonka.X());
+    Sleep(20);
     }
     while (!buttons.MiddleReleased());
     skidX = wonka.X();
@@ -178,6 +179,7 @@ void calibrateRPS() {
     LCD.WriteLine("Place the robot facing the button and align it with the ramp.");
     LCD.Write("X: ");
     LCD.WriteLine(wonka.X());
+    Sleep(20);
     }
     while (!buttons.MiddleReleased());
     rampX = wonka.X();
