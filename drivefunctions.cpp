@@ -113,18 +113,18 @@ void driveUntilLight(float power, bool encodingCorrection) {
 
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
     bool direction; //true if forward
-    while ((y && abs(coordinate - wonka.Y()) > RPS_TOLERANCE) || (!y && abs(coordinate - wonka.X()) > RPS_TOLERANCE)) {
+    while ((y && abs(coordinate - wonka.Y()) > RPS_DISTANCE_TOLERANCE) || (!y && abs(coordinate - wonka.X()) > RPS_DISTANCE_TOLERANCE)) {
         if (y) {
             direction = wonka.Y() < coordinate == facingIncreasingDirection;
         } else {
             direction = wonka.X() < coordinate == facingIncreasingDirection;
         }
-        drive(FORWARD_POWER, ADJUST_DISTANCE, false, false);
+        drive(FORWARD_POWER * (direction ? 1 : -1), RPS_DISTANCE_TOLERANCE / 2, false, false);
         LCD.Write("RPS X: ");
         LCD.WriteLine(wonka.X());
         LCD.Write("RPS Y: ");
         LCD.WriteLine(wonka.Y());
-        Sleep(50);
+        Sleep(RPS_DELAY_TIME);
     }
     left.Stop();
     right.Stop();
@@ -237,9 +237,10 @@ void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid, flo
 }
 
 void turnUntilRPSHeading(int angle, float power) {
-    while (abs(angle - wonka.Heading()) > RPS_TOLERANCE) {
+    int start = TimeNow();
+    while (abs(angle - wonka.Heading()) > RPS_TURNING_TOLERANCE && (TimeNow() - start) < TURN_TIME_LIMIT) {
         turnToRPSHeading(angle, power, CLOSEST, false, 0.25);
-        Sleep(50);
+        Sleep(RPS_DELAY_TIME);
     }
 }
 
@@ -400,10 +401,10 @@ void setToForward(bool forward) {
 void setToTurn (bool isLeft) {
     if (isLeft) {
         right.SetPower(TURN_POWER);
-        left.SetPower(TURN_POWER / 2);
+        left.SetPower(TURN_POWER * 3 / 4);
     } else {
         left.SetPower(TURN_POWER * LEFT_MODIFIER);
-        right.SetPower(TURN_POWER * LEFT_MODIFIER / 2);
+        right.SetPower(TURN_POWER * LEFT_MODIFIER * 3 / 4);
     }
 }
 

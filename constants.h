@@ -40,7 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.1
+#define LEFT_MODIFIER 1.15
 
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.8
@@ -57,6 +57,8 @@
 #define FORWARD_POWER 100
 //Power normally used when turning
 #define TURN_POWER 90
+//Power used for RPS adjustment
+#define RPS_POWER 80
 
 //Angle forklift is placed to start
 #define START_ANGLE 30
@@ -72,19 +74,29 @@
 #define SWITCH_ANGLE 75
 //Angle when pressing button
 #define BUTTON_ANGLE 45
+//Angle when swiping the pin
+#define PIN_SWIPE_ANGLE 75
+//Angle when pushing skid in chiller
+#define SKID_PUSH_ANGLE 110
 
 //Starting angle of door
-#define DOOR_CLOSED 100
+#define DOOR_CLOSED 115
 #define DOOR_OPEN 30
 
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 4.5
-#define COUNTS_PER_DEGREE_LEFT 0.420
+#define COUNTS_PER_DEGREE_LEFT 0.400
 #define COUNTS_PER_DEGREE_RIGHT 0.470
 
 //Light position on course
 #define LIGHT_X 0.0
 #define LIGHT_Y 20.5
+
+#define SWITCH_X -5.5
+#define CHILLER_X -13.6
+#define RAMP_X 1.6
+#define PIN_X 2.6
+#define PIN_Y 41.5
 
 //Constants for light reading result
 #define NO_LIGHT 0
@@ -98,11 +110,16 @@
 #define RPS_CORRECTION_DISTANCE 3.5
 
 //RPS distance tolerance
-#define RPS_TOLERANCE 0.5
+#define RPS_DISTANCE_TOLERANCE 0.5
+#define RPS_TURNING_TOLERANCE 5.0
 
 #define YELLOW_LEFT .242
 #define YELLOW_RIGHT 1.103
-#define YELLOW_CENTER 2.463
+#define YELLOW_CENTER 2.43
+
+#define RPS_DELAY_TIME 200
+
+#define TURN_TIME_LIMIT 4.0
 
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;
