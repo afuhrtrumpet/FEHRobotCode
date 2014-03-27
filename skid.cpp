@@ -11,12 +11,11 @@
 #define DISTANCE_6 30
 #define DISTANCE_7 8
 #define DISTANCE_8 6
-#define DISTANCE_9 5
+#define DISTANCE_9 8
 #define DISTANCE_10 12
 
 #define CORRECTION_DISTANCE 3.0
 
-#define SKID_X 6.0
 
 Skid::Skid()
 {
@@ -25,11 +24,14 @@ Skid::Skid()
 int Skid::Run() {
     drive(FORWARD_POWER * -1, DISTANCE_8, false, false);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
+    turnUntilRPSHeading(90, TURN_POWER);
     //Drive to RPS coordinate representing skid alignment
-    driveToRPSCoordinate(RPS_POWER, SKID_X, false, true);
+    drive(FORWARD_POWER, DISTANCE_1, false, false);
+    driveToRPSCoordinate(RPS_POWER, skidX, false, true);
     //drive(FORWARD_POWER, DISTANCE_1, false, false);
     //Turn left, adjust, then back into wall
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
+    Sleep(250);
     turnUntilRPSHeading(0, RPS_POWER);
     //turnUntilRPSHeading(0, RPS_POWER);
     bool hitWall = driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10);
@@ -42,8 +44,8 @@ int Skid::Run() {
     forklift.SetDegree(HORIZONTAL);
     //Drive forward at first past pin line, then follow skid line
     drive(FORWARD_POWER, DISTANCE_2, false, false);
-    //followLine(FORWARD_POWER, 20, true);
     Sleep(250);
+    turnUntilRPSHeading(0, TURN_POWER);
     //Set forklift past vertical to lift up skid
     forklift.SetDegree(SKID_ANGLE);
     //Back up, go forward, and then back up again to ensure skid is up
@@ -52,20 +54,18 @@ int Skid::Run() {
     drive(FORWARD_POWER, DISTANCE_3, false, false);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 30);
     //Turn left, and drive in position to go down ramp
+    drive(FORWARD_POWER, 1, false, false);
     turnToRPSHeading(90, TURN_POWER, LEFT, true, 1);
+    Sleep(250);
+    turnUntilRPSHeading(90, TURN_POWER);
     //drive(FORWARD_POWER, DISTANCE_4, false, false);
-    driveToRPSCoordinate(FORWARD_POWER, RAMP_X, false, false);
+    driveToRPSCoordinate(FORWARD_POWER, rampX, false, false);
     //Turn and drive backwards down ramp
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
     turnUntilRPSHeading(0, TURN_POWER);
     //driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 30);
     float pastY = wonka.Y();
     drive(FORWARD_POWER * -1, DISTANCE_7, false, false);
-    if (abs(wonka.Y() - pastY) < 5) {
-        turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
-        drive(FORWARD_POWER * -1, CORRECTION_DISTANCE, false, false);
-        turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
-    }
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
     //Turn and drive to hit wall in shop

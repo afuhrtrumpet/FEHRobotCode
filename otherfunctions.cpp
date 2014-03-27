@@ -164,6 +164,25 @@ void calibrateEncoders() {
     while (!buttons.MiddleReleased());
 }
 
+void calibrateRPS() {
+    while (!buttons.MiddlePressed()) {
+    LCD.Clear();
+    LCD.WriteLine("Place the robot facing the pin parallel to the skid.");
+    LCD.Write("X: ");
+    LCD.WriteLine(wonka.X());
+    }
+    while (!buttons.MiddleReleased());
+    skidX = wonka.X();
+    while (!buttons.MiddlePressed()) {
+    LCD.Clear();
+    LCD.WriteLine("Place the robot facing the button and align it with the ramp.");
+    LCD.Write("X: ");
+    LCD.WriteLine(wonka.X());
+    }
+    while (!buttons.MiddleReleased());
+    rampX = wonka.X();
+}
+
 int readLight() {
     LCD.Clear();
     LCD.Write("Photosensor value is ");

@@ -40,7 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.2
+#define LEFT_MODIFIER 1.15
 
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.8
@@ -50,15 +50,15 @@
 #define TIMEOUT_DISTANCE 40
 
 //Power going up ramp
-#define RAMP_POWER 127
+#define RAMP_POWER 110
 //Power going down ramp
 #define RAMP_DOWN_POWER 70
 //Power normally used when driving forward
-#define FORWARD_POWER 100
+#define FORWARD_POWER 110
 //Power normally used when turning
-#define TURN_POWER 90
+#define TURN_POWER 110
 //Power used for RPS adjustment
-#define RPS_POWER 80
+#define RPS_POWER 100
 
 //Angle forklift is placed to start
 #define START_ANGLE 30
@@ -71,11 +71,11 @@
 //Angle when dropping off skid
 #define DROP_OFF_ANGLE 125
 //Angle when flipping switch
-#define SWITCH_ANGLE 75
+#define SWITCH_ANGLE 60
 //Angle when pressing button
 #define BUTTON_ANGLE 45
 //Angle when swiping the pin
-#define PIN_SWIPE_ANGLE 75
+#define PIN_SWIPE_ANGLE 60
 //Angle when pushing skid in chiller
 #define SKID_PUSH_ANGLE 110
 
@@ -94,9 +94,10 @@
 
 #define SWITCH_X -5.5
 #define CHILLER_X -13.6
-#define RAMP_X 1.6
-#define PIN_X 2.6
+#define RAMP_X 3.0
+#define PIN_X 10.0
 #define PIN_Y 41.5
+#define SKID_X 7.0
 
 //Constants for light reading result
 #define NO_LIGHT 0
@@ -119,7 +120,7 @@
 
 #define RPS_DELAY_TIME 200
 
-#define TURN_TIME_LIMIT 4.0
+#define TURN_TIME_LIMIT 3.0
 
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;
@@ -134,6 +135,9 @@ extern float lightY;
 
 extern float countsPerDegreeLeft;
 extern float countsPerDegreeRight;
+
+extern float skidX;
+extern float rampX;
 
 extern ButtonBoard buttons;
 extern AnalogInputPin photosensor;

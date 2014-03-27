@@ -4,7 +4,7 @@
 #include "drivefunctions.h"
 
 #define DISTANCE_RED 7
-#define DISTANCE_BLUE 8
+#define DISTANCE_BLUE 7
 #define DISTANCE_1 13
 
 Scoop::Scoop()
@@ -17,12 +17,9 @@ void Scoop::Run(int lightState) {
     forklift.SetDegree(START_ANGLE);
     //Turn, back into other wall
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
+    turnUntilRPSHeading(90, TURN_POWER);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 20);
-    //Backup again
-    turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 8);
-    turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 8);
+    turn(true, TURN_POWER, 10, false);
 
     //Drive to the correct bin based on light
     if (lightState == RED) {
@@ -32,6 +29,7 @@ void Scoop::Run(int lightState) {
         turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
         driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 5);
         turnToRPSHeading(90, TURN_POWER, RIGHT, false, false);
+        turn(true, TURN_POWER, 10, false);
         drive(FORWARD_POWER, DISTANCE_BLUE, false, false);
     }
     //Drop the scoop in the bin
@@ -41,5 +39,5 @@ void Scoop::Run(int lightState) {
     //Drive to center of shop, turn, and back into wall
     drive(FORWARD_POWER, DISTANCE_1, false, false);
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, TIMEOUT_DISTANCE);
+    turnUntilRPSHeading(0, TURN_POWER);
 }

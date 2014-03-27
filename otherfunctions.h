@@ -13,6 +13,9 @@ void calibrateLightPosition();
 //Calibrate encoding
 void calibrateEncoders();
 
+//Calibrate coordinates for skid and ramp
+void calibrateRPS();
+
 //Returns an int based on whether the robot detects no light, red light, or blue light
 int readLight();
 

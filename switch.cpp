@@ -2,8 +2,8 @@
 #include "constants.h"
 #include "drivefunctions.h"
 
-#define DISTANCE_1 16.0
-#define DISTANCE_2 1.0
+#define DISTANCE_1 12.0
+#define DISTANCE_2 .75
 
 Switch::Switch()
 {
@@ -17,8 +17,11 @@ void Switch::Run() {
     //Drive to back wall and turn right
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
+    Sleep(250);
+    turnUntilRPSHeading(90, TURN_POWER);
     //Drive forward, turn left
     //drive(FORWARD_POWER, DISTANCE_1, false, false);
+    drive(FORWARD_POWER, DISTANCE_1, false, false);
     driveToRPSCoordinate(RPS_POWER, SWITCH_X, false, true);
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     turnUntilRPSHeading(0, TURN_POWER);
@@ -29,6 +32,7 @@ void Switch::Run() {
     turnToRPSHeading(135, TURN_POWER, RIGHT, false, 1);
     forklift.SetDegree(SWITCH_ANGLE);
     turnUntilSwitchFlip(TURN_POWER, false, 100);
+    turnUntilRPSHeading(0, TURN_POWER);
     //turnToRPSHeading(45, TURN_POWER, LEFT, false, 1);
     //Retract forklift to avoid further contact
     forklift.SetDegree(START_ANGLE);

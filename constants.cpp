@@ -19,6 +19,9 @@ float lightY = LIGHT_Y;
 float countsPerDegreeLeft = COUNTS_PER_DEGREE_LEFT;
 float countsPerDegreeRight = COUNTS_PER_DEGREE_RIGHT;
 
+float skidX = SKID_X;
+float rampX = RAMP_X;
+
 //Sensors and motors
 ButtonBoard buttons( FEHIO::Bank3 );
 AnalogInputPin photosensor(FEHIO::P1_0);
