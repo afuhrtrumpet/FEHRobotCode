@@ -3,7 +3,7 @@
 #include "drivefunctions.h"
 
 #define DISTANCE_1 6.0
-#define DISTANCE_2 6.0
+#define DISTANCE_2 7.0
 #define DISTANCE_3 1.0
 #define DISTANCE_4 4.0
 #define PRESS_DISTANCE 0.5

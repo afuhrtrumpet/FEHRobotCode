@@ -40,7 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.15
+#define LEFT_MODIFIER 1.2
 
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.8
@@ -84,9 +84,9 @@
 #define DOOR_OPEN 30
 
 //Constants used to determine distances/angles by the encoders
-#define COUNTS_PER_INCH 4.5
-#define COUNTS_PER_DEGREE_LEFT 0.400
-#define COUNTS_PER_DEGREE_RIGHT 0.470
+#define COUNTS_PER_INCH 5
+#define COUNTS_PER_DEGREE_LEFT 0.5
+#define COUNTS_PER_DEGREE_RIGHT 0.5
 
 //Light position on course
 #define LIGHT_X 0.0

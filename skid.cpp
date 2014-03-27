@@ -16,7 +16,7 @@
 
 #define CORRECTION_DISTANCE 3.0
 
-#define SKID_X 5.0
+#define SKID_X 6.0
 
 Skid::Skid()
 {
