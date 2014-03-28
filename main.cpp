@@ -13,6 +13,7 @@
 #include "scoop.h"
 #include "pin.h"
 #include "charger.h"
+#include "ramp.h"
 
 int main(void)
 {
@@ -52,7 +53,8 @@ int main(void)
         Switch::Run();
         int lightState = Skid::Run();
         Scoop::Run(lightState);
-        Pin::Run();
+        //Pin::Run();
+        Ramp::Run();
         Charger::Run();
 
         /* END MAIN SEQUENCE OF EVENTS */

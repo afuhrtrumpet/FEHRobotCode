@@ -6,6 +6,7 @@
 #define DISTANCE_2 9.0
 #define DISTANCE_3 1.5
 #define DISTANCE_4 4.0
+#define DISTANCE_5 5.0
 #define PRESS_DISTANCE 0.5
 
 #define MAX_TIMES 7
@@ -22,6 +23,7 @@ void Button::Run() {
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     drive(FORWARD_POWER, DISTANCE_2, false, false);
     turnToRPSHeading(90, TURN_POWER, LEFT, false, 1);
+    drive(FORWARD_POWER, DISTANCE_5, false, false);
     //Press button until button has been pressed right number of times
     int times = 0;
     while (wonka.OvenPressed() < wonka.Oven() && times < MAX_TIMES) {

@@ -112,8 +112,9 @@ void driveUntilLight(float power, bool encodingCorrection) {
 }
 
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
+    float start = TimeNow();
     bool direction; //true if forward
-    while ((y && abs(coordinate - wonka.Y()) > RPS_DISTANCE_TOLERANCE) || (!y && abs(coordinate - wonka.X()) > RPS_DISTANCE_TOLERANCE)) {
+    while ((y && abs(coordinate - wonka.Y()) > RPS_DISTANCE_TOLERANCE) || (!y && abs(coordinate - wonka.X()) > RPS_DISTANCE_TOLERANCE) && (TimeNow() - start) < LINEAR_TIME_LIMIT) {
         if (y) {
             direction = wonka.Y() < coordinate == facingIncreasingDirection;
         } else {

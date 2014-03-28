@@ -3,7 +3,8 @@
 #include "drivefunctions.h"
 
 #define DISTANCE_1 8.0
-#define DISTANCE_2 .75
+#define DISTANCE_2 3.0
+#define DISTANCE_3 1.75
 
 Switch::Switch()
 {
@@ -24,10 +25,12 @@ void Switch::Run() {
     drive(FORWARD_POWER, DISTANCE_1, false, false);
     driveToRPSCoordinate(RPS_POWER, SWITCH_X, false, true);
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
+    Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
     //Drive into switch and then backwards
     driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 12);
     drive(-1 * FORWARD_POWER, DISTANCE_2, false, false);
+    drive(FORWARD_POWER, DISTANCE_3, false, false);
     //Turn right, put forklift down, turn left (this action flips the switch
     turnToRPSHeading(135, TURN_POWER, RIGHT, false, 1);
     forklift.SetDegree(SWITCH_ANGLE);

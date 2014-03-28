@@ -40,8 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.15
-
+#define LEFT_MODIFIER 1.05
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.8
 //Defined difference between red and blue light
@@ -118,9 +117,10 @@
 #define YELLOW_RIGHT 1.103
 #define YELLOW_CENTER 2.43
 
-#define RPS_DELAY_TIME 200
+#define RPS_DELAY_TIME 150
 
 #define TURN_TIME_LIMIT 3.0
+#define LINEAR_TIME_LIMIT 5.0
 
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;

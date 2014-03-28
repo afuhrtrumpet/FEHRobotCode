@@ -4,15 +4,15 @@
 #include "math.h"
 
 #define DISTANCE_1 9
-#define DISTANCE_2 20
+#define DISTANCE_2 20.0
 #define DISTANCE_3 2
 #define DISTANCE_4 5.5
-#define DISTANCE_5 32
+#define DISTANCE_5 25
 #define DISTANCE_6 30
-#define DISTANCE_7 8
+#define DISTANCE_7 10
 #define DISTANCE_8 6
 #define DISTANCE_9 8
-#define DISTANCE_10 12
+#define DISTANCE_10 14
 
 #define CORRECTION_DISTANCE 3.0
 
@@ -43,9 +43,9 @@ int Skid::Run() {
     //Set forklift to horizontal then move forward to pick up skid
     forklift.SetDegree(HORIZONTAL);
     //Drive forward at first past pin line, then follow skid line
-    drive(FORWARD_POWER, DISTANCE_2 / 2, false, false);
+    drive(FORWARD_POWER, DISTANCE_2 / 3, false, false);
     turnUntilRPSHeading(0, RPS_POWER);
-    drive(FORWARD_POWER, DISTANCE_2 / 2, false, false);
+    drive(FORWARD_POWER, DISTANCE_2 * 2 / 3, false, false);
     Sleep(250);
     turnUntilRPSHeading(175, TURN_POWER);
     //Set forklift past vertical to lift up skid
@@ -68,6 +68,8 @@ int Skid::Run() {
     //driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 30);
     float pastY = wonka.Y();
     drive(FORWARD_POWER * -1, DISTANCE_7, false, false);
+    Sleep(250);
+    turnUntilRPSHeading(0, TURN_POWER);
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
     //Turn and drive to hit wall in shop

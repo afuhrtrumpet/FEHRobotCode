@@ -7,7 +7,7 @@
 #define DISTANCE_3 5
 #define DISTANCE_4 8
 #define DISTANCE_5 6
-#define DISTANCE_6 7
+#define DISTANCE_6 5
 
 Pin::Pin()
 {
@@ -24,17 +24,18 @@ void Pin::Run() {
     driveToRPSCoordinate(FORWARD_POWER, PIN_X, false, false);
     turnToRPSHeading(0, TURN_POWER, RIGHT, false, 1);
     turnUntilRPSHeading(0, TURN_POWER);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10);
+    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 7);
     //forklift.SetDegree(PIN_SWIPE_ANGLE);
     //Drive forward, turn right, align
     //drive(FORWARD_POWER, DISTANCE_3, false, false);
+    forklift.SetDegree(PIN_ANGLE);
     driveToRPSCoordinate(FORWARD_POWER, PIN_Y, true, true);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
     turnUntilRPSHeading(90, TURN_POWER);
     forklift.SetDegree(PIN_ANGLE);
     //Set forklift to horizontal and begin driving. Follow line if it is detected
 
-    driveUntilSwitchPress(FORWARD_POWER, FORKLIFT_SWITCH, DISTANCE_4);
+    drive(FORWARD_POWER, DISTANCE_4, false, false);
     drive(FORWARD_POWER * -1, DISTANCE_5, false, false);
     forklift.SetDegree(HORIZONTAL);
     drive(FORWARD_POWER, DISTANCE_6, false, false);
