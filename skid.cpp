@@ -43,9 +43,9 @@ int Skid::Run() {
     //Set forklift to horizontal then move forward to pick up skid
     forklift.SetDegree(HORIZONTAL);
     //Drive forward at first past pin line, then follow skid line
-    drive(FORWARD_POWER, DISTANCE_2 / 3, false, false);
+    drive(FORWARD_POWER, DISTANCE_2 / 4, false, false);
     turnUntilRPSHeading(0, RPS_POWER);
-    drive(FORWARD_POWER, DISTANCE_2 * 2 / 3, false, false);
+    drive(FORWARD_POWER, DISTANCE_2 * 3 / 4, false, false);
     Sleep(250);
     turnUntilRPSHeading(175, TURN_POWER);
     //Set forklift past vertical to lift up skid
@@ -64,6 +64,7 @@ int Skid::Run() {
     driveToRPSCoordinate(FORWARD_POWER, rampX, false, false);
     //Turn and drive backwards down ramp
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
+    Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
     //driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 30);
     float pastY = wonka.Y();

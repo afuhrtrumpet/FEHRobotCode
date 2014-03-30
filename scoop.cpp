@@ -4,7 +4,7 @@
 #include "drivefunctions.h"
 
 #define DISTANCE_RED 7
-#define DISTANCE_BLUE 20
+#define DISTANCE_BLUE 21
 
 #define DISTANCE_1 14
 
@@ -22,6 +22,8 @@ void Scoop::Run(int lightState) {
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 20);
     turnUntilRPSHeading(90, TURN_POWER);
 
+    turn(true, TURN_POWER, 3, false);
+
     //Drive to the correct bin based on light
     if (lightState == RED) {
         drive(FORWARD_POWER, DISTANCE_RED, false, false);
@@ -30,6 +32,7 @@ void Scoop::Run(int lightState) {
     }
     //Drop the scoop in the bin
     dropOffScoop();
+    turnUntilRPSHeading(90, TURN_POWER);
     //Back into the wall again to ensure alignment
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, TIMEOUT_DISTANCE);
     //Drive to center of shop, turn, and back into wall

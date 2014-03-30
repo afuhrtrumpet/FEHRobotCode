@@ -6,7 +6,7 @@
 #define DISTANCE_2 9.0
 #define DISTANCE_3 1.5
 #define DISTANCE_4 4.0
-#define DISTANCE_5 5.0
+#define DISTANCE_5 6.0
 #define PRESS_DISTANCE 0.5
 
 #define MAX_TIMES 7
@@ -34,8 +34,9 @@ void Button::Run() {
         drive(-1 * FORWARD_POWER, DISTANCE_3, false, false);
         if (previousPresses == wonka.OvenPressed()) {
             //Adjust to horizontal
+            Sleep(100);
             turnToRPSHeading(90, TURN_POWER, CLOSEST, false, 1);
-        turn(true, TURN_POWER, 5, false);
+        turn(true, TURN_POWER, 3, false);
         }
         times++;
     }

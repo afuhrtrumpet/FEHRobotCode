@@ -52,7 +52,7 @@ int main(void)
         Button::Run();
         Switch::Run();
         int lightState = Skid::Run();
-        Scoop::Run(lightState);
+        Scoop::Run(RED);
         //Pin::Run();
         Ramp::Run();
         Charger::Run();
