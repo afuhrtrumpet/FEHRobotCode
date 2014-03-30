@@ -46,14 +46,14 @@ int main(void)
         //Starting actions: clear LCD and move forklift to start angle
         LCD.Clear();
         forklift.SetDegree(START_ANGLE);
+        door.SetDegree(DOOR_CLOSED);
 
         /* START MAIN SEQUENCE OF EVENTS */
 
         Button::Run();
         Switch::Run();
         int lightState = Skid::Run();
-        Scoop::Run(RED);
-        //Pin::Run();
+        Scoop::Run(lightState);
         Ramp::Run();
         Charger::Run();
 

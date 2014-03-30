@@ -40,7 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.175
+#define LEFT_MODIFIER 1.12
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.75
 //Defined difference between red and blue light
@@ -53,11 +53,11 @@
 //Power going down ramp
 #define RAMP_DOWN_POWER 70
 //Power normally used when driving forward
-#define FORWARD_POWER 110
+#define FORWARD_POWER 100
 //Power normally used when turning
-#define TURN_POWER 110
+#define TURN_POWER 100
 //Power used for RPS adjustment
-#define RPS_POWER 100
+#define RPS_POWER 85
 
 //Angle forklift is placed to start
 #define START_ANGLE 30
@@ -76,16 +76,18 @@
 //Angle when swiping the pin
 #define PIN_SWIPE_ANGLE 60
 //Angle when pushing skid in chiller
-#define SKID_PUSH_ANGLE 110
+#define SKID_PUSH_ANGLE 115
 
 //Starting angle of door
 #define DOOR_CLOSED 115
 #define DOOR_OPEN 30
+#define DOOR_PIN_ANGLE 0
+#define DOOR_HORIZONTAL 75
 
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 5
-#define COUNTS_PER_DEGREE_LEFT 0.5
-#define COUNTS_PER_DEGREE_RIGHT 0.5
+#define COUNTS_PER_DEGREE_LEFT 0.55
+#define COUNTS_PER_DEGREE_RIGHT 0.497
 
 //Light position on course
 #define LIGHT_X 0.0
@@ -121,6 +123,7 @@
 
 #define TURN_TIME_LIMIT 3.0
 #define LINEAR_TIME_LIMIT 5.0
+#define UP_RAMP_TIME_LIMIT 5.0
 
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;

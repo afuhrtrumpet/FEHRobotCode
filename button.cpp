@@ -7,7 +7,9 @@
 #define DISTANCE_3 1.5
 #define DISTANCE_4 4.0
 #define DISTANCE_5 6.0
-#define PRESS_DISTANCE 0.5
+
+#define DISTANCE_HIT 1.0
+#define DISTANCE_NOT_HIT 1.5
 
 #define MAX_TIMES 7
 
@@ -29,14 +31,14 @@ void Button::Run() {
     while (wonka.OvenPressed() < wonka.Oven() && times < MAX_TIMES) {
         int previousPresses = wonka.OvenPressed();
         //Press button
-        bool hit = driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 5);
-        drive(FORWARD_POWER, PRESS_DISTANCE, false, false);
-        drive(-1 * FORWARD_POWER, DISTANCE_3, false, false);
+        driveUntilButtonPress(FORWARD_POWER, 5);
         if (previousPresses == wonka.OvenPressed()) {
+            drive(-1 * FORWARD_POWER, DISTANCE_NOT_HIT, false, false);
             //Adjust to horizontal
             Sleep(100);
-            turnToRPSHeading(90, TURN_POWER, CLOSEST, false, 1);
-        turn(true, TURN_POWER, 3, false);
+            turnToRPSHeading(90, TURN_POWER, CLOSEST, false, 0.5);
+        } else {
+            drive(-1 * FORWARD_POWER, DISTANCE_HIT, false, false);
         }
         times++;
     }

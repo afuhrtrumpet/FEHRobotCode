@@ -3,8 +3,8 @@
 #include "otherfunctions.h"
 #include "drivefunctions.h"
 
-#define DISTANCE_RED 7
-#define DISTANCE_BLUE 21
+#define DISTANCE_RED 5.5
+#define DISTANCE_BLUE 14
 
 #define DISTANCE_1 14
 
@@ -20,9 +20,7 @@ void Scoop::Run(int lightState) {
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
     turnUntilRPSHeading(90, TURN_POWER);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 20);
-    turnUntilRPSHeading(90, TURN_POWER);
-
-    turn(true, TURN_POWER, 3, false);
+    turnUntilRPSHeading(87, TURN_POWER);
 
     //Drive to the correct bin based on light
     if (lightState == RED) {
@@ -38,6 +36,8 @@ void Scoop::Run(int lightState) {
     //Drive to center of shop, turn, and back into wall
     turnUntilRPSHeading(90, TURN_POWER);
     drive(FORWARD_POWER, DISTANCE_1, false, false);
-    turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
+    turn(false, TURN_POWER, 180, false);
+    driveToRPSCoordinate(RPS_POWER, rampX, false, false);
+    turnToRPSHeading(0, TURN_POWER, RIGHT, false, 1);
     turnUntilRPSHeading(0, TURN_POWER);
 }

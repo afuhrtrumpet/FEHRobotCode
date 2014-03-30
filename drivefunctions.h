@@ -30,7 +30,7 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
 //Drive past the specified RPS coordinate
 //y: true if coordinate specified is the y coordinate
 //facingIncreasingDirection: true if direction robot is facing is increasing in either the x or y direction (specified by y)
-void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection);
+bool drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float timeoutSeconds);
 
 //Uses side switches to keep robot against a wall while driving
 //Bool right side: true if robot should stay aligned along the right side (only option at this point)
@@ -63,5 +63,7 @@ void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle);
 
 void setToForward(bool);
 void setToTurn(bool);
+
+bool driveUntilButtonPress(float power, float timeoutDistance);
 
 #endif

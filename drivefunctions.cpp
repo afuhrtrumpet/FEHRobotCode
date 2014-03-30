@@ -131,9 +131,11 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
     right.Stop();
 }
 
-void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
+bool drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float timeoutSeconds) {
+    float start = TimeNow();
     while (y && (facingIncreasingDirection && wonka.Y() < coordinate || !facingIncreasingDirection && wonka.Y() > coordinate) ||
-                    !y && (facingIncreasingDirection && wonka.X() < coordinate || !facingIncreasingDirection && wonka.X() > coordinate)) {
+                    !y && (facingIncreasingDirection && wonka.X() < coordinate || !facingIncreasingDirection && wonka.X() > coordinate)
+           && (TimeNow() - start) < timeoutSeconds) {
         left.SetPower(power);
         right.SetPower(power);
         LCD.Write("RPS X: ");
@@ -141,9 +143,9 @@ void drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIn
         LCD.Write("RPS Y: ");
         LCD.WriteLine(wonka.Y());
     }
-    //drive(FORWARD_POWER * (direction ? -1 : 1), RPS_CORRECTION_DISTANCE, false);
     left.Stop();
     right.Stop();
+    return (TimeNow() - start) < timeoutSeconds;
 }
 
 
@@ -430,4 +432,23 @@ void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle) {
         Sleep(50);
 
     }
+}
+
+bool driveUntilButtonPress(float power, float timeoutDistance) {
+    leftencoder.ResetCounts();
+    rightencoder.ResetCounts();
+    left.SetPower(power * LEFT_MODIFIER);
+    right.SetPower(power);
+    int previousPresses = wonka.OvenPressed();
+    while (wonka.OvenPressed() == previousPresses && rightencoder.Counts() < timeoutDistance * COUNTS_PER_INCH) {
+        LCD.Clear();
+        LCD.Write("The value of the left encoder is ");
+        LCD.WriteLine(leftencoder.Counts());
+        LCD.Write("The value of the right encoder is ");
+        LCD.WriteLine(rightencoder.Counts());
+        Sleep(50);
+    }
+    left.Stop();
+    right.Stop();
+    return rightencoder.Counts() < timeoutDistance * COUNTS_PER_INCH;
 }
