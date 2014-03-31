@@ -7,7 +7,7 @@
 #define DISTANCE_BLUE 21
 
 #define DISTANCE_1 14
-#define INCREMENTAL_DISTANCE 2.0
+#define INCREMENTS 3
 
 Scoop::Scoop()
 {
@@ -24,14 +24,13 @@ void Scoop::Run(int lightState) {
     turnUntilRPSHeading(87, TURN_POWER);
 
     //Drive to the correct bin based on light
-    if (lightState == RED) {
-        drive(FORWARD_POWER, DISTANCE_RED, false, false);
-    } else {
-        drive(FORWARD_POWER, DISTANCE_BLUE, false, false);
+    float scoopDistance = lightState == RED ? DISTANCE_RED : DISTANCE_BLUE;
+    for (int i = 0; i < INCREMENTS; i++) {
+        drive(FORWARD_POWER, scoopDistance / INCREMENTS, false, false);
+        turnUntilRPSHeading(90, TURN_POWER, 2.0);
     }
     //Drop the scoop in the bin
     dropOffScoop();
-    turnUntilRPSHeading(90, TURN_POWER);
     //Back into the wall again to ensure alignment
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, TIMEOUT_DISTANCE);
     //Drive to center of shop, turn, and back into wall
