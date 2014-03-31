@@ -4,9 +4,10 @@
 #include "drivefunctions.h"
 
 #define DISTANCE_RED 5.5
-#define DISTANCE_BLUE 14
+#define DISTANCE_BLUE 21
 
 #define DISTANCE_1 14
+#define INCREMENTAL_DISTANCE 2.0
 
 Scoop::Scoop()
 {

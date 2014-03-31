@@ -57,6 +57,8 @@ void turnToRPSHeading(int degree, float power, int turnOption, bool withSkid, fl
 //Keeps turning until the robot is within an acceptable range of the specified angle.
 void turnUntilRPSHeading(int angle, float power);
 
+void turnUntilRPSHeading(int angle, float power, float timeoutSeconds);
+
 //Turns the robot until wonka records switch press, or until timeout is triggered
 //Timeout angle: angle at which the robot stops no matter what
 void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle);

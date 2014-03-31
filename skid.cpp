@@ -8,7 +8,7 @@
 #define DISTANCE_2 20.0
 #define DISTANCE_3 2
 #define DISTANCE_4 5.5
-#define DISTANCE_5 25
+#define DISTANCE_5 20
 #define DISTANCE_6 20
 #define DISTANCE_7 10
 #define DISTANCE_8 5
@@ -41,7 +41,8 @@ int Skid::Run() {
     drive(FORWARD_POWER, DISTANCE_2 / 5, false, false);
     turnUntilRPSHeading(0, RPS_POWER);
     door.SetDegree(DOOR_CLOSED);
-    Sleep(100);
+    float start = TimeNow();
+    while (TimeNow() - start < .100);
     drive(FORWARD_POWER, DISTANCE_2 * 4 / 5, false, false);
     Sleep(250);
     turnUntilRPSHeading(175, TURN_POWER);
@@ -62,12 +63,15 @@ int Skid::Run() {
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
     Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
-    float pastY = wonka.Y();
     drive(FORWARD_POWER * -1, DISTANCE_7, false, false);
     Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
+    while (!drivePastRPSCoordinate(RAMP_POWER, DOWN_RAMP_Y, true, true, UP_RAMP_TIME_LIMIT)) {
+        Sleep(200);
+        turnUntilRPSHeading(0, TURN_POWER);
+    }
     //Turn and drive to hit wall in shop
     turnToRPSHeading(90, TURN_POWER, RIGHT, true, 1);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 20);

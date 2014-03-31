@@ -240,8 +240,12 @@ void turnToRPSHeading(int angle, float power, int turnOption, bool withSkid, flo
 }
 
 void turnUntilRPSHeading(int angle, float power) {
+    turnUntilRPSHeading(angle, power, TURN_TIME_LIMIT);
+}
+
+void turnUntilRPSHeading(int angle, float power, float timeoutSeconds) {
     int start = TimeNow();
-    while (abs(angle - wonka.Heading()) > RPS_TURNING_TOLERANCE && (TimeNow() - start) < TURN_TIME_LIMIT) {
+    while (abs(angle - wonka.Heading()) > RPS_TURNING_TOLERANCE && (TimeNow() - start) < timeoutSeconds) {
         turnToRPSHeading(angle, power, CLOSEST, false, 0.25);
         Sleep(RPS_DELAY_TIME);
     }
