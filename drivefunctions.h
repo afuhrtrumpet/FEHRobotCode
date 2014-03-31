@@ -8,6 +8,8 @@
 //debug: true if you want robot to stop and let you set the distance, then display that distance to screen.
 void drive(float power, float distance, bool encodingCorrection, bool debug);
 
+void drive(float power, float distance, bool encodingCorrection, bool debug, float leftModifier);
+
 //Same as drive method, but returns the minimum photosensor value
 //encodingCorrection: true if you want motors to adjust to equal power based on encoding(requires both encoders to work
 float driveAndReadLight(float power, float distance, bool encodingCorrection);

@@ -3,6 +3,10 @@
 #include "math.h"
 
 void drive(float power, float distance, bool encodingCorrection, bool debug) {
+    drive(power, distance, encodingCorrection, debug, 1);
+}
+
+void drive(float power, float distance, bool encodingCorrection, bool debug, float leftModifier) {
     if (debug) {
         leftencoder.ResetCounts();
         rightencoder.ResetCounts();
@@ -22,7 +26,7 @@ void drive(float power, float distance, bool encodingCorrection, bool debug) {
         while (stopSwitch.Value());
         while (!stopSwitch.Value());
     } else {
-        left.SetPower(power * LEFT_MODIFIER);
+        left.SetPower(power * LEFT_MODIFIER * leftModifier);
         right.SetPower(power);
         leftencoder.ResetCounts();
         rightencoder.ResetCounts();
@@ -44,6 +48,7 @@ void drive(float power, float distance, bool encodingCorrection, bool debug) {
         right.SetPower(0);
     }
 }
+
 
 float driveAndReadLight(float power, float distance, bool encodingCorrection) {
     float photoValue = 3.3;
