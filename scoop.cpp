@@ -3,8 +3,8 @@
 #include "otherfunctions.h"
 #include "drivefunctions.h"
 
-#define DISTANCE_RED 5.5
-#define DISTANCE_BLUE 21
+#define DISTANCE_RED 4
+#define DISTANCE_BLUE 18
 
 #define DISTANCE_1 14
 #define INCREMENTS 3
@@ -27,6 +27,7 @@ void Scoop::Run(int lightState) {
     float scoopDistance = lightState == RED ? DISTANCE_RED : DISTANCE_BLUE;
     for (int i = 0; i < INCREMENTS; i++) {
         drive(FORWARD_POWER, scoopDistance / INCREMENTS, false, false);
+        Sleep(100);
         turnUntilRPSHeading(90, TURN_POWER, 2.0);
     }
     //Drop the scoop in the bin
@@ -36,8 +37,7 @@ void Scoop::Run(int lightState) {
     //Drive to center of shop, turn, and back into wall
     turnUntilRPSHeading(90, TURN_POWER);
     drive(FORWARD_POWER, DISTANCE_1, false, false);
-    turn(false, TURN_POWER, 180, false);
-    driveToRPSCoordinate(RPS_POWER, rampX, false, false);
-    turnToRPSHeading(0, TURN_POWER, RIGHT, false, 1);
+    driveToRPSCoordinate(RPS_POWER, rampX - ROBOT_RPS_LENGTH, false, false);
+    turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     turnUntilRPSHeading(0, TURN_POWER);
 }

@@ -40,7 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.12
+#define LEFT_MODIFIER 1.1
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.75
 //Defined difference between red and blue light
@@ -86,8 +86,8 @@
 
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 5
-#define COUNTS_PER_DEGREE_LEFT 0.55
-#define COUNTS_PER_DEGREE_RIGHT 0.497
+#define COUNTS_PER_DEGREE_LEFT 0.51
+#define COUNTS_PER_DEGREE_RIGHT 0.55
 
 //Light position on course
 #define LIGHT_X 0.0
@@ -100,7 +100,9 @@
 #define PIN_Y 41.5
 #define SKID_X 6.0
 #define UP_RAMP_Y 38
-#define DOWN_RAMP_Y 6.0
+#define DOWN_RAMP_Y 15
+
+#define ROBOT_RPS_LENGTH 6.0
 
 //Constants for light reading result
 #define NO_LIGHT 0
@@ -125,7 +127,7 @@
 
 #define TURN_TIME_LIMIT 3.0
 #define LINEAR_TIME_LIMIT 5.0
-#define UP_RAMP_TIME_LIMIT 5.0
+#define UP_RAMP_TIME_LIMIT 1.0
 
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;

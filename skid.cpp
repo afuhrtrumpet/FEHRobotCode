@@ -8,9 +8,9 @@
 #define DISTANCE_2 20.0
 #define DISTANCE_3 2
 #define DISTANCE_4 5.5
-#define DISTANCE_5 20
+#define DISTANCE_5 10
 #define DISTANCE_6 20
-#define DISTANCE_7 10
+#define DISTANCE_7 7
 #define DISTANCE_8 5
 #define DISTANCE_9 8
 #define DISTANCE_10 14
@@ -42,7 +42,12 @@ int Skid::Run() {
     turnUntilRPSHeading(0, RPS_POWER);
     door.SetDegree(DOOR_CLOSED);
     float start = TimeNow();
-    while (TimeNow() - start < .100);
+    while (TimeNow() - start < 0.75);
+    drive(FORWARD_POWER, 0.5, false, false);
+    door.SetDegree(DOOR_CLOSED);
+    start = TimeNow();
+    while (TimeNow() - start < 0.75);
+    turnUntilRPSHeading(0, RPS_POWER);
     drive(FORWARD_POWER, DISTANCE_2 * 4 / 5, false, false);
     Sleep(250);
     turnUntilRPSHeading(175, TURN_POWER);
@@ -63,9 +68,11 @@ int Skid::Run() {
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
     Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
-    drive(FORWARD_POWER * -1, DISTANCE_7, false, false);
+    for (int i = 0; i < 2; i++) {
+        drive(FORWARD_POWER * -1, DISTANCE_7, false, false);
     Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
+    }
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
     while (!drivePastRPSCoordinate(RAMP_POWER * -1, DOWN_RAMP_Y, true, false, UP_RAMP_TIME_LIMIT)) {
