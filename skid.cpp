@@ -68,7 +68,7 @@ int Skid::Run() {
     turnUntilRPSHeading(0, TURN_POWER);
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);
     driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
-    while (!drivePastRPSCoordinate(RAMP_POWER, DOWN_RAMP_Y, true, true, UP_RAMP_TIME_LIMIT)) {
+    while (!drivePastRPSCoordinate(RAMP_POWER * -1, DOWN_RAMP_Y, true, false, UP_RAMP_TIME_LIMIT)) {
         Sleep(200);
         turnUntilRPSHeading(0, TURN_POWER);
     }
