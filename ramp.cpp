@@ -11,7 +11,7 @@ Ramp::Ramp()
 void Ramp::Run() {
     forklift.SetDegree(HORIZONTAL);
     //Drive up ramp and don't stop until the robot is up
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 2; i++) {
         drive(FORWARD_POWER, DISTANCE_1, false, false);
         Sleep(100);
         turnUntilRPSHeading(0, FORWARD_POWER, 3.0);

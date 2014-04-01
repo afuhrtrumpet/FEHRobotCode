@@ -58,6 +58,9 @@
 #define TURN_POWER 100
 //Power used for RPS adjustment
 #define RPS_POWER 85
+#define SCOOP_POWER 90
+#define SKID_POWER 90
+#define CHARGER_POWER 115
 
 //Angle forklift is placed to start
 #define START_ANGLE 30
@@ -74,7 +77,7 @@
 //Angle when pressing button
 #define BUTTON_ANGLE 45
 //Angle when swiping the pin
-#define PIN_SWIPE_ANGLE 60
+#define PIN_DOWN_ANGLE 85
 //Angle when pushing skid in chiller
 #define SKID_PUSH_ANGLE 115
 
@@ -86,7 +89,7 @@
 
 //Constants used to determine distances/angles by the encoders
 #define COUNTS_PER_INCH 5
-#define COUNTS_PER_DEGREE_LEFT 0.51
+#define COUNTS_PER_DEGREE_LEFT 0.494
 #define COUNTS_PER_DEGREE_RIGHT 0.55
 
 //Light position on course
@@ -98,8 +101,8 @@
 #define RAMP_X 3.0
 #define PIN_X 10.0
 #define PIN_Y 41.5
-#define SKID_X 6.0
-#define UP_RAMP_Y 38
+#define SKID_X 6.5
+#define UP_RAMP_Y 35
 #define DOWN_RAMP_Y 15
 
 #define ROBOT_RPS_LENGTH 6.0

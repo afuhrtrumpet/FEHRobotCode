@@ -3,13 +3,13 @@
 #include "drivefunctions.h"
 
 #define DISTANCE_1 5.0
-#define DISTANCE_2 9.0
+#define DISTANCE_2 8.0
 #define DISTANCE_3 1.5
 #define DISTANCE_4 4.0
-#define DISTANCE_5 6.0
+#define DISTANCE_5 3.0
 
-#define DISTANCE_HIT 1.0
-#define DISTANCE_NOT_HIT 1.5
+#define DISTANCE_HIT 0.5
+#define DISTANCE_NOT_HIT .75
 
 #define MAX_TIMES 7
 

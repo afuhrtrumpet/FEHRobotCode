@@ -61,6 +61,8 @@ void turnUntilRPSHeading(int angle, float power);
 
 void turnUntilRPSHeading(int angle, float power, float timeoutSeconds);
 
+void turnUntilRPSHeading(int angle, float power, float timeoutSeconds, float turnModifier);
+
 //Turns the robot until wonka records switch press, or until timeout is triggered
 //Timeout angle: angle at which the robot stops no matter what
 void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle);

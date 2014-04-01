@@ -4,7 +4,7 @@
 
 #define DISTANCE_1 8.0
 #define DISTANCE_2 3.0
-#define DISTANCE_3 1.75
+#define DISTANCE_3 1.25
 
 Switch::Switch()
 {

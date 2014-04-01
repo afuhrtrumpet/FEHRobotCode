@@ -249,12 +249,17 @@ void turnUntilRPSHeading(int angle, float power) {
 }
 
 void turnUntilRPSHeading(int angle, float power, float timeoutSeconds) {
+    turnUntilRPSHeading(angle, power, TURN_TIME_LIMIT, 0.25);
+}
+
+void turnUntilRPSHeading(int angle, float power, float timeoutSeconds, float turnModifier) {
     int start = TimeNow();
     while (abs(angle - wonka.Heading()) > RPS_TURNING_TOLERANCE && (TimeNow() - start) < timeoutSeconds) {
-        turnToRPSHeading(angle, power, CLOSEST, false, 0.25);
+        turnToRPSHeading(angle, power, CLOSEST, false, turnModifier);
         Sleep(RPS_DELAY_TIME);
     }
 }
+
 
 void followLine(float power, float distance, bool yellow) {
     int state = LINE_NOT_SEEN;
