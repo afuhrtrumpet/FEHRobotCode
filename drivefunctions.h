@@ -8,6 +8,8 @@
 //debug: true if you want robot to stop and let you set the distance, then display that distance to screen.
 void drive(float power, float distance, bool encodingCorrection, bool debug);
 
+//Same as previous, but adds:
+//leftModifier: number to multiply the left motor by
 void drive(float power, float distance, bool encodingCorrection, bool debug, float leftModifier);
 
 //Same as drive method, but returns the minimum photosensor value
@@ -29,6 +31,8 @@ void driveUntilLight(float power, bool encodingCorrection);
 //facingIncreasingDirection: true if direction robot is facing is increasing in either the x or y direction (specified by y)
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection);
 
+//Same as previous, but adds
+//degree: heading to periodically adjust to after imcrementally driving (if degree is negative nothing happens)
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float degree);
 
 //Drive past the specified RPS coordinate
@@ -61,17 +65,28 @@ void turnToRPSHeading(int degree, float power, int turnOption, bool withSkid, fl
 //Keeps turning until the robot is within an acceptable range of the specified angle.
 void turnUntilRPSHeading(int angle, float power);
 
+//Same as previous, but adds:
+//timeoutSeconds: time until robot stops adjusting
 void turnUntilRPSHeading(int angle, float power, float timeoutSeconds);
 
+//Same as previous, but adds:
+//turnModifier: number to multiply all incremental turns by
 void turnUntilRPSHeading(int angle, float power, float timeoutSeconds, float turnModifier);
 
 //Turns the robot until wonka records switch press, or until timeout is triggered
 //Timeout angle: angle at which the robot stops no matter what
 void turnUntilSwitchFlip(float power, bool isRight, float timeoutAngle);
 
+//Sets robot to drive forward
+//true if robot is going forward, false to go backwards
 void setToForward(bool);
+
+//Sets robots motors to turn
+//true if robot is going left
 void setToTurn(bool);
 
+//Drives robot until button detects an additional press
+//timeoutDistance: encoder recording at which robot stops
 bool driveUntilButtonPress(float power, float timeoutDistance);
 
 #endif
