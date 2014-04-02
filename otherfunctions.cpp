@@ -3,7 +3,8 @@
 #include "drivefunctions.h"
 
 void waitForStartLight() {
-    while (photosensor.Value() > LIGHT_START_THRESHOLD) {
+    float start = TimeNow();
+    while (photosensor.Value() > LIGHT_START_THRESHOLD && TimeNow() - start < 30.0) {
         LCD.Clear();
         LCD.Write("Waiting for start light.\nValue is currently ");
         LCD.WriteLine(photosensor.Value());
@@ -195,6 +196,14 @@ int readLight() {
         return BLUE;
     else
         return RED;
+}
+
+void resetRPSCoordinates() {
+    rampX = RAMP_X;
+    skidX = SKID_X;
+    LCD.WriteLine("RPS coordinates reset. Press the middle button to continue.");
+    while (!buttons.MiddlePressed());
+    while (!buttons.MiddleReleased());
 }
 
 int adjustToLight() {

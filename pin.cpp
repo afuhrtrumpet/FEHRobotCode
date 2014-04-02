@@ -6,11 +6,17 @@
 #define DISTANCE_2 4
 #define DISTANCE_3 3
 
+/* PIN
+ *======
+ *Takes robot from directly after flipping switch
+ *to after it pulls out the pin and aligns with the skid */
+
 Pin::Pin()
 {
 }
 
 void Pin::Run() {
+    //Back up, turn right
     drive(FORWARD_POWER * -1, DISTANCE_1, false, false);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
     turnUntilRPSHeading(90, TURN_POWER);
@@ -18,7 +24,9 @@ void Pin::Run() {
     drive(FORWARD_POWER, DISTANCE_1, false, false);
     driveToRPSCoordinate(RPS_POWER, skidX, false, true);
     Sleep(200);
+    //Adjust before pulling out pin
     turnUntilRPSHeading(90, TURN_POWER);
+    //Drive backwards, move forklift down, drive forwards, move forklift up
     drive (FORWARD_POWER * -1, DISTANCE_2, false, false);
     forklift.SetDegree(PIN_DOWN_ANGLE);
     float start = TimeNow();
@@ -28,6 +36,7 @@ void Pin::Run() {
     start = TimeNow();
     while (TimeNow() - start < .5);
     forklift.SetDegree(START_ANGLE);
+    //Drive back then forwards again
     start = TimeNow();
     while (TimeNow() - start < .5);
     drive(PIN_POWER * -1, DISTANCE_3, false, false);

@@ -117,6 +117,10 @@ void driveUntilLight(float power, bool encodingCorrection) {
 }
 
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection) {
+    driveToRPSCoordinate(power, coordinate, y, facingIncreasingDirection, -1);
+}
+
+void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float degree) {
     float start = TimeNow();
     bool direction; //true if forward
     while ((y && abs(coordinate - wonka.Y()) > RPS_DISTANCE_TOLERANCE) || (!y && abs(coordinate - wonka.X()) > RPS_DISTANCE_TOLERANCE) && (TimeNow() - start) < LINEAR_TIME_LIMIT) {
@@ -130,11 +134,15 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
         LCD.WriteLine(wonka.X());
         LCD.Write("RPS Y: ");
         LCD.WriteLine(wonka.Y());
+        if (degree >= 0) {
+            turnToRPSHeading(degree, power, CLOSEST, false, 0.25);
+        }
         Sleep(RPS_DELAY_TIME);
     }
     left.Stop();
     right.Stop();
 }
+
 
 bool drivePastRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float timeoutSeconds) {
     float start = TimeNow();

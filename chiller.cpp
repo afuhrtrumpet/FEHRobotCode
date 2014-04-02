@@ -6,6 +6,10 @@
 #define DISTANCE_2 13
 #define DISTANCE_3 5
 
+/* CHILLER
+ *==========
+ *Takes robot from shop floor to putting the skid in chiller */
+
 Chiller::Chiller()
 {
 }
@@ -17,7 +21,7 @@ void Chiller::Run() {
     turnUntilRPSHeading(90, TURN_POWER);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 20);
     //Drive away from wall and turn
-    driveToRPSCoordinate(RPS_POWER, CHILLER_X, false, true);
+    driveToRPSCoordinate(RPS_POWER, CHILLER_X, false, true, 90);
     turnToRPSHeading(0, TURN_POWER, LEFT, true, 1);
     turn(true, TURN_POWER, 10, true);
     Sleep(250);
@@ -29,6 +33,7 @@ void Chiller::Run() {
     //Drive to chiller
     drive(SCOOP_POWER, DISTANCE_1, false, false, 1.1);
     drive(FORWARD_POWER * -1, DISTANCE_2, false, false);
+    //Raise forklift a little bit and go in again to push skid in
     forklift.SetDegree(SKID_PUSH_ANGLE);
     drive(FORWARD_POWER, DISTANCE_3, false, false);
     Sleep(50);

@@ -13,6 +13,11 @@
 
 #define MAX_TIMES 7
 
+/* BUTTON
+ *========
+ *Takes robot from beginning of course
+ *to facing towards the center after pressing the button */
+
 Button::Button()
 {
 }
@@ -30,15 +35,18 @@ void Button::Run() {
     drive(FORWARD_POWER, DISTANCE_5, false, false);
     //Press button until button has been pressed right number of times
     int times = 0;
+        //Go until button has been pressed correct number of times or attempts time out
     while (wonka.OvenPressed() < wonka.Oven() && times < MAX_TIMES) {
         int previousPresses = wonka.OvenPressed();
         //Press button
+        //Go slower if there is one press remaining to avoid double pressing
         if (wonka.OvenPressed() == wonka.Oven() - 1) {
             driveUntilButtonPress(LAST_PRESS_POWER, 5);
         } else {
-        driveUntilButtonPress(FORWARD_POWER, 5);
+            driveUntilButtonPress(FORWARD_POWER, 5);
         }
         Sleep(50);
+                //Determine if button was hit. If it was, drive less backwards
         if (previousPresses == wonka.OvenPressed()) {
             drive(-1 * FORWARD_POWER, DISTANCE_NOT_HIT, false, false);
             //Adjust to horizontal

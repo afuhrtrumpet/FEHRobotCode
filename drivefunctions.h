@@ -29,6 +29,8 @@ void driveUntilLight(float power, bool encodingCorrection);
 //facingIncreasingDirection: true if direction robot is facing is increasing in either the x or y direction (specified by y)
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection);
 
+void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float degree);
+
 //Drive past the specified RPS coordinate
 //y: true if coordinate specified is the y coordinate
 //facingIncreasingDirection: true if direction robot is facing is increasing in either the x or y direction (specified by y)

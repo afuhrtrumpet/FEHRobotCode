@@ -42,9 +42,9 @@
 //Multiplier of left motor's power to match right
 #define LEFT_MODIFIER 1.1
 //Light must below this value to start
-#define LIGHT_START_THRESHOLD 1.75
+#define LIGHT_START_THRESHOLD 1.5
 //Defined difference between red and blue light
-#define RED_BLUE_THRESHOLD 1.3
+#define RED_BLUE_THRESHOLD 1.2
 
 #define TIMEOUT_DISTANCE 40
 
@@ -106,6 +106,7 @@
 #define SKID_X 6.5
 #define UP_RAMP_Y 35
 #define DOWN_RAMP_Y 15
+#define SWITCH_Y 5
 
 #define ROBOT_RPS_LENGTH 6.0
 

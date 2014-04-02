@@ -14,6 +14,10 @@
 
 #define CORRECTION_DISTANCE 3.0
 
+/* SKID
+ *=======
+ *Takes robot from directly after pulling pin to
+ *getting the skid and navigating to the shop floor */
 
 Skid::Skid()
 {
@@ -24,36 +28,30 @@ int Skid::Run() {
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     Sleep(250);
     turnUntilRPSHeading(0, RPS_POWER);
-    if (!driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10)) {
+    if (!driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 7)) {
         turnUntilRPSHeading(0, TURN_POWER);
     }
+    //Put forklift at horizontal
     forklift.SetDegree(HORIZONTAL);
-    //door.SetDegree(DOOR_HORIZONTAL);
-    //Drive forward at first past pin line, then follow skid line
+    //Drive forward at first past pin line, then adjust
     drive(SKID_POWER, DISTANCE_2 / 5, false, false, 1.15);
     Sleep(250);
     turnUntilRPSHeading(0, RPS_POWER);
-    //door.SetDegree(DOOR_CLOSED);
-    //float start = TimeNow();
-    //while (TimeNow() - start < 0.75);
-    //drive(FORWARD_POWER, 0.5, false, false);
-    //door.SetDegree(DOOR_CLOSED);
-    //start = TimeNow();
-    //while (TimeNow() - start < 0.75);
-    //turnUntilRPSHeading(0, RPS_POWER);
+    //Keep going to skid
     drive(SKID_POWER, DISTANCE_2 * 4 / 5, false, false, 1.15);
     Sleep(250);
     turnUntilRPSHeading(175, TURN_POWER);
     //Set forklift past vertical to lift up skid
     forklift.SetDegree(SKID_ANGLE);
-    //Back up, go forward, and then back up again to ensure skid is up
+    //Drive back and forward to hit wall again
     drive(FORWARD_POWER * -1, DISTANCE_3, false, false);
     Sleep(50);
     drive(FORWARD_POWER, DISTANCE_8, false, false);
-    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 30);
+    //Drive all the way back and forward again to ensure skid is up
+    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 10);
     Sleep(250);
     drive(FORWARD_POWER, DISTANCE_3, false, false);
-    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 30);
+    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 10);
     //Turn left, and drive in position to go down ramp
     drive(FORWARD_POWER, 1, false, false);
     turnToRPSHeading(90, TURN_POWER, LEFT, true, 1);
@@ -64,14 +62,20 @@ int Skid::Run() {
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
     turn(false, TURN_POWER, 10, true);
     Sleep(250);
+    //To a check after a little bit of driving
     turnUntilRPSHeading(0, TURN_POWER);
     for (int i = 0; i < 2; i++) {
+        //Drive periodically and check two more times
         drive(FORWARD_POWER * -1, DISTANCE_6, false, false);
-    Sleep(250);
-    turnUntilRPSHeading(0, TURN_POWER);
+        Sleep(250);
+        if (wonka.Y() < SWITCH_Y) {
+            turnToRPSHeading(90, TURN_POWER, LEFT, false, 1);
+            turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
+        }
+        turnUntilRPSHeading(0, TURN_POWER);
     }
+    //Read light state and drive the rest of the way
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 30);
     while (!drivePastRPSCoordinate(RAMP_POWER * -1, DOWN_RAMP_Y, true, false, UP_RAMP_TIME_LIMIT)) {
         Sleep(200);
         turnUntilRPSHeading(0, TURN_POWER);

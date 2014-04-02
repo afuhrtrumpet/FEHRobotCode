@@ -4,27 +4,27 @@
 
 #define DISTANCE_1 30
 
+/* CHARGER
+ *=========
+ *Takes robot from top of ramp to the beginning.
+ *Only quits when middle button is held for a while. */
+
 Charger::Charger()
 {
 }
 
 void Charger::Run() {
     turnUntilRPSHeading(90, TURN_POWER);
-    /*drive(FORWARD_POWER * -1, DISTANCE_1 / 2, false, false);
-    turnUntilRPSHeading(90, TURN_POWER);
-    drive(FORWARD_POWER * -1, DISTANCE_1 / 2, false, false);
-    turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10);
-    //Turn to horizontal and drive backwards to hit charger
-    turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
-    turnUntilRPSHeading(90, TURN_POWER);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 1000);*/
+    //Keep driving until middle button is pressed
     while (!buttons.MiddlePressed()) {
+    //Drive in 10-inch increments
         if (driveUntilSwitchPress(CHARGER_POWER * -1, BACK_SWITCH, 10)) {
+            //If switch was pressed, adjust, back into wall, adjust
             turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
             driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10);
             turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
         }
+        //Adjust after every 10 inches
         turnUntilRPSHeading(90, TURN_POWER, 2.0);
     }
     while (!buttons.MiddleReleased());

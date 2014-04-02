@@ -10,6 +10,11 @@
 #define DISTANCE_2 2.0
 #define INCREMENTS 3
 
+/* SCOOP
+ *=======
+ *Takes robot from directly after putting skid in chiller
+ *to dropping of the scoop and aligning to go up the ramp */
+
 Scoop::Scoop()
 {
 }
@@ -26,6 +31,7 @@ void Scoop::Run(int lightState) {
 
     //Drive to the correct bin based on light
     float scoopDistance = lightState == RED ? DISTANCE_RED : DISTANCE_BLUE;
+    //Drive angling right in three increments to ensure accuracy
     for (int i = 0; i < INCREMENTS; i++) {
         drive(SCOOP_POWER, scoopDistance / INCREMENTS, false, false, 1.2);
         Sleep(100);
@@ -33,14 +39,13 @@ void Scoop::Run(int lightState) {
     }
     //Drop the scoop in the bin
     dropOffScoop();
-    //Back into the wall again to ensure alignment
-    //driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, TIMEOUT_DISTANCE);
-    //Drive to center of shop, turn, and back into wall
+    //Drive to center of shop, and turn to align with ramp
     turnUntilRPSHeading(90, TURN_POWER);
-    //drive(FORWARD_POWER, DISTANCE_1, false, false);
     driveToRPSCoordinate(RPS_POWER, rampX - ROBOT_RPS_LENGTH, false, true);
-    door.SetDegree(DOOR_OPEN);
+    turnToRPSHeading(135, TURN_POWER, LEFT, false, 1);
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
+    //Open door again to ensure scoop is out
+    door.SetDegree(DOOR_OPEN);
     turnUntilRPSHeading(0, TURN_POWER);
     door.SetDegree(DOOR_CLOSED);
 }

@@ -27,7 +27,7 @@ int main(void)
     while (true) {
         //Display options and wait for user to select an option
         LCD.Clear();
-        LCD.WriteLine("Press the left button to calibrate RPS, the right button to calibrate encoders, or the middle button to start.");
+        LCD.WriteLine("Press the left button to calibrate RPS, the right button to reset coordinates, or the middle button to start.");
         while (!buttons.LeftPressed() && !buttons.MiddlePressed() && !buttons.RightPressed());
         if (buttons.MiddlePressed()) {
             while (!buttons.MiddleReleased());
@@ -37,7 +37,7 @@ int main(void)
             continue;
         } else {
             while (!buttons.RightReleased());
-            calibrateEncoders();
+            resetRPSCoordinates();
             continue;
         }
 
