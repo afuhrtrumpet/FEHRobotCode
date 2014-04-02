@@ -2,51 +2,34 @@
 #include "drivefunctions.h"
 #include "constants.h"
 
-#define DISTANCE_1 40
-#define DISTANCE_2 10
-#define DISTANCE_3 5
-#define DISTANCE_4 8
-#define DISTANCE_5 6
-#define DISTANCE_6 3
+#define DISTANCE_1 5
+#define DISTANCE_2 4
+#define DISTANCE_3 3
 
 Pin::Pin()
 {
 }
 
 void Pin::Run() {
-    forklift.SetDegree(HORIZONTAL);
-    //Drive up ramp and don't stop until the robot is up
-    while (!drivePastRPSCoordinate(RAMP_POWER, 38, true, true, UP_RAMP_TIME_LIMIT)) {
-        Sleep(100);
-        turnUntilRPSHeading(0, TURN_POWER);
-    }
-    forklift.SetDegree(START_ANGLE);
-    //Turn right, go backwards, turn left, go backwards to align with wall
-    turnToRPSHeading(90, TURN_POWER, LEFT, false, 1);
-    //drive(FORWARD_POWER * -1, DISTANCE_2, false, false);
-    driveToRPSCoordinate(FORWARD_POWER, PIN_X, false, false);
-    turnToRPSHeading(0, TURN_POWER, RIGHT, false, 1);
-    turnUntilRPSHeading(0, TURN_POWER);
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 7);
-
-    /* OLD IDEA HERE */
-
-    forklift.SetDegree(PIN_ANGLE);
-    driveToRPSCoordinate(FORWARD_POWER, PIN_Y, true, true);
+    drive(FORWARD_POWER * -1, DISTANCE_1, false, false);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
     turnUntilRPSHeading(90, TURN_POWER);
+    //Drive to RPS coordinate representing skid alignment
+    drive(FORWARD_POWER, DISTANCE_1, false, false);
+    driveToRPSCoordinate(RPS_POWER, skidX, false, true);
+    Sleep(200);
+    turnUntilRPSHeading(90, TURN_POWER);
+    drive (FORWARD_POWER * -1, DISTANCE_2, false, false);
+    forklift.SetDegree(PIN_DOWN_ANGLE);
+    float start = TimeNow();
+    while (TimeNow() - start < .5);
+    drive(FORWARD_POWER, DISTANCE_3, false, false);
     forklift.SetDegree(PIN_ANGLE);
-    //Set forklift to horizontal and begin driving. Follow line if it is detected
-
-    drive(FORWARD_POWER, DISTANCE_4, false, false);
-    drive(FORWARD_POWER * -1, DISTANCE_5, false, false);
-    forklift.SetDegree(HORIZONTAL);
-    drive(FORWARD_POWER, DISTANCE_6, false, false);
-    //Lift up forklift to extract pin
-    forklift.SetDegree(PIN_ANGLE);
-
-    /* NEW IDEA HERE */
-    /*driveToRPSCoordinate(FORWARD_POWER, PIN_Y, true, true);
-    door.SetDegree(DOOR_PIN_ANGLE);
-    turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);*/
+    start = TimeNow();
+    while (TimeNow() - start < .5);
+    forklift.SetDegree(START_ANGLE);
+    start = TimeNow();
+    while (TimeNow() - start < .5);
+    drive(PIN_POWER * -1, DISTANCE_3, false, false);
+    drive(PIN_POWER, DISTANCE_2, false, false);
 }

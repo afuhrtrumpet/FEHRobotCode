@@ -14,6 +14,7 @@
 #include "pin.h"
 #include "charger.h"
 #include "ramp.h"
+#include "chiller.h"
 
 int main(void)
 {
@@ -52,7 +53,9 @@ int main(void)
 
         Button::Run();
         Switch::Run();
+        Pin::Run();
         int lightState = Skid::Run();
+        Chiller::Run();
         Scoop::Run(lightState);
         Ramp::Run();
         Charger::Run();
