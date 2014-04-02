@@ -6,17 +6,18 @@
 
 #define DISTANCE_1 9
 #define DISTANCE_2 20.0
-#define DISTANCE_3 2
+#define DISTANCE_3 2.0
 #define DISTANCE_4 5.5
 #define DISTANCE_5 10
 #define DISTANCE_6 20
 #define DISTANCE_7 7
 #define DISTANCE_8 5
-#define DISTANCE_9 6
-#define DISTANCE_10 12
+#define DISTANCE_9 7.5
+#define DISTANCE_10 13
 #define DISTANCE_11 5
-#define DISTANCE_12 3
+#define DISTANCE_12 4
 #define DISTANCE_13 3
+#define DISTANCE_14 5
 
 #define CORRECTION_DISTANCE 3.0
 
@@ -45,8 +46,8 @@ int Skid::Run() {
     forklift.SetDegree(START_ANGLE);
     start = TimeNow();
     while (TimeNow() - start < .5);
-    drive(FORWARD_POWER * -1, DISTANCE_13, false, false);
-    drive(FORWARD_POWER, DISTANCE_12, false, false);
+    drive(PIN_POWER * -1, DISTANCE_13, false, false);
+    drive(PIN_POWER, DISTANCE_12, false, false);
     //Turn left, adjust, then back into wall
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     Sleep(250);
@@ -74,6 +75,9 @@ int Skid::Run() {
     //Set forklift past vertical to lift up skid
     forklift.SetDegree(SKID_ANGLE);
     //Back up, go forward, and then back up again to ensure skid is up
+    drive(FORWARD_POWER * -1, DISTANCE_3, false, false);
+    Sleep(50);
+    drive(FORWARD_POWER, DISTANCE_14, false, false);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 30);
     Sleep(250);
     drive(FORWARD_POWER, DISTANCE_3, false, false);

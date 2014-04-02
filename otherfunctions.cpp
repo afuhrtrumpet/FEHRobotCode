@@ -213,6 +213,7 @@ int adjustToLight() {
 
 void dropOffScoop() {
     door.SetDegree(DOOR_OPEN);
-    Sleep(2000);
+    Sleep(200);
+    drive(FORWARD_POWER, 2.0, false, false);
     door.SetDegree(DOOR_CLOSED);
 }

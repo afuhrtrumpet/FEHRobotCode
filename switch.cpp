@@ -25,7 +25,7 @@ void Switch::Run() {
     drive(FORWARD_POWER, DISTANCE_1, false, false);
     driveToRPSCoordinate(RPS_POWER, SWITCH_X, false, true);
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
-    Sleep(150);
+    Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
     //Drive into switch and then backwards
     driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 12);

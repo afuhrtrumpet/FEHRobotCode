@@ -8,8 +8,8 @@
 #define DISTANCE_4 4.0
 #define DISTANCE_5 3.0
 
-#define DISTANCE_HIT 0.5
-#define DISTANCE_NOT_HIT .75
+#define DISTANCE_HIT 1.0
+#define DISTANCE_NOT_HIT 1.25
 
 #define MAX_TIMES 7
 
@@ -25,13 +25,20 @@ void Button::Run() {
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     drive(FORWARD_POWER, DISTANCE_2, false, false);
     turnToRPSHeading(90, TURN_POWER, LEFT, false, 1);
+    Sleep(100);
+    turnUntilRPSHeading(90, TURN_POWER);
     drive(FORWARD_POWER, DISTANCE_5, false, false);
     //Press button until button has been pressed right number of times
     int times = 0;
     while (wonka.OvenPressed() < wonka.Oven() && times < MAX_TIMES) {
         int previousPresses = wonka.OvenPressed();
         //Press button
+        if (wonka.OvenPressed() == wonka.Oven() - 1) {
+            driveUntilButtonPress(LAST_PRESS_POWER, 5);
+        } else {
         driveUntilButtonPress(FORWARD_POWER, 5);
+        }
+        Sleep(50);
         if (previousPresses == wonka.OvenPressed()) {
             drive(-1 * FORWARD_POWER, DISTANCE_NOT_HIT, false, false);
             //Adjust to horizontal

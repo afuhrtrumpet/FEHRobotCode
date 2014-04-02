@@ -53,14 +53,16 @@
 //Power going down ramp
 #define RAMP_DOWN_POWER 70
 //Power normally used when driving forward
-#define FORWARD_POWER 100
+#define FORWARD_POWER 110
 //Power normally used when turning
 #define TURN_POWER 100
 //Power used for RPS adjustment
-#define RPS_POWER 85
+#define RPS_POWER 90
 #define SCOOP_POWER 90
-#define SKID_POWER 90
-#define CHARGER_POWER 115
+#define SKID_POWER 100
+#define CHARGER_POWER 127
+#define PIN_POWER 100
+#define LAST_PRESS_POWER 100
 
 //Angle forklift is placed to start
 #define START_ANGLE 30
