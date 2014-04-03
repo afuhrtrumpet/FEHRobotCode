@@ -3,7 +3,7 @@
 #include "otherfunctions.h"
 #include "drivefunctions.h"
 
-#define DISTANCE_RED 4
+#define DISTANCE_RED 2.0
 #define DISTANCE_BLUE 18
 
 #define DISTANCE_1 14
@@ -33,7 +33,7 @@ void Scoop::Run(int lightState) {
     float scoopDistance = lightState == RED ? DISTANCE_RED : DISTANCE_BLUE;
     //Drive angling right in three increments to ensure accuracy
     for (int i = 0; i < INCREMENTS; i++) {
-        drive(SCOOP_POWER, scoopDistance / INCREMENTS, false, false, 1.2);
+        drive(SCOOP_POWER, scoopDistance / INCREMENTS, false, false, 1.15);
         Sleep(100);
         turnUntilRPSHeading(90, TURN_POWER, 2.0);
     }
@@ -43,9 +43,10 @@ void Scoop::Run(int lightState) {
     turnUntilRPSHeading(90, TURN_POWER);
     driveToRPSCoordinate(RPS_POWER, rampX - ROBOT_RPS_LENGTH, false, true);
     turnToRPSHeading(135, TURN_POWER, LEFT, false, 1);
+    door.SetDegree(DOOR_OPEN);
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     //Open door again to ensure scoop is out
-    door.SetDegree(DOOR_OPEN);
+    Sleep(250);
     turnUntilRPSHeading(0, TURN_POWER);
     door.SetDegree(DOOR_CLOSED);
 }

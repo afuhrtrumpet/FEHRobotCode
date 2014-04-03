@@ -20,7 +20,7 @@ void Ramp::Run() {
     for (int i = 0; i < 2; i++) {
         drive(FORWARD_POWER, DISTANCE_1, false, false);
         Sleep(100);
-        turnUntilRPSHeading(0, FORWARD_POWER, 3.0);
+        turnUntilRPSHeading(0, FORWARD_POWER, 2.0);
     }
     drivePastRPSCoordinate(RAMP_POWER, UP_RAMP_Y, true, true, 30.0);
     forklift.SetDegree(START_ANGLE);

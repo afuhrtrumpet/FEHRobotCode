@@ -50,7 +50,7 @@ void drive(float power, float distance, bool encodingCorrection, bool debug, flo
 }
 
 
-float driveAndReadLight(float power, float distance, bool encodingCorrection) {
+int driveAndReadLight(float power, float distance, bool encodingCorrection) {
     float photoValue = 3.3;
     left.SetPower(power * LEFT_MODIFIER);
     right.SetPower(power);
@@ -75,7 +75,7 @@ float driveAndReadLight(float power, float distance, bool encodingCorrection) {
     }
     left.SetPower(0);
     right.SetPower(0);
-    return photoValue;
+    return photoValue < RED_BLUE_THRESHOLD ? RED : BLUE;
 }
 
 bool driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
@@ -257,7 +257,7 @@ void turnUntilRPSHeading(int angle, float power) {
 }
 
 void turnUntilRPSHeading(int angle, float power, float timeoutSeconds) {
-    turnUntilRPSHeading(angle, power, TURN_TIME_LIMIT, 0.25);
+    turnUntilRPSHeading(angle, power, timeoutSeconds, 0.25);
 }
 
 void turnUntilRPSHeading(int angle, float power, float timeoutSeconds, float turnModifier) {

@@ -99,7 +99,7 @@
 #define LIGHT_Y 20.5
 
 #define SWITCH_X -5.5
-#define CHILLER_X -13.6
+#define CHILLER_X -12.6
 #define RAMP_X 3.0
 #define PIN_X 10.0
 #define PIN_Y 41.5

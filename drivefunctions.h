@@ -14,7 +14,7 @@ void drive(float power, float distance, bool encodingCorrection, bool debug, flo
 
 //Same as drive method, but returns the minimum photosensor value
 //encodingCorrection: true if you want motors to adjust to equal power based on encoding(requires both encoders to work
-float driveAndReadLight(float power, float distance, bool encodingCorrection);
+int driveAndReadLight(float power, float distance, bool encodingCorrection);
 
 //Drives the robot at the specified power until the switch specified by switchId is triggered (either FORKLIFT_SWITCH or BACK_SWITCH)
 //timeoutDistance: robot stops no matter what after this distance has been traveled

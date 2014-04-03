@@ -3,8 +3,8 @@
 #include "constants.h"
 
 #define DISTANCE_1 20
-#define DISTANCE_2 13
-#define DISTANCE_3 5
+#define DISTANCE_2 7
+#define DISTANCE_3 12
 
 /* CHILLER
  *==========

@@ -28,7 +28,7 @@ int Skid::Run() {
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     Sleep(250);
     turnUntilRPSHeading(0, RPS_POWER);
-    if (!driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 7)) {
+    if (!driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 10)) {
         turnUntilRPSHeading(0, TURN_POWER);
     }
     //Put forklift at horizontal
@@ -40,7 +40,7 @@ int Skid::Run() {
     //Keep going to skid
     drive(SKID_POWER, DISTANCE_2 * 4 / 5, false, false, 1.15);
     Sleep(250);
-    turnUntilRPSHeading(175, TURN_POWER);
+    turnUntilRPSHeading(0, TURN_POWER);
     //Set forklift past vertical to lift up skid
     forklift.SetDegree(SKID_ANGLE);
     //Drive back and forward to hit wall again
@@ -48,7 +48,12 @@ int Skid::Run() {
     Sleep(50);
     drive(FORWARD_POWER, DISTANCE_8, false, false);
     //Drive all the way back and forward again to ensure skid is up
-    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 10);
+    drive(FORWARD_POWER * -1, 15, false, false);
+    Sleep(200);
+    turnUntilRPSHeading(0, TURN_POWER);
+    if (!driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 15)) {
+        turnUntilRPSHeading(0, TURN_POWER);
+    }
     Sleep(250);
     drive(FORWARD_POWER, DISTANCE_3, false, false);
     driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 10);
