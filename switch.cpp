@@ -4,7 +4,7 @@
 
 #define DISTANCE_1 8.0
 #define DISTANCE_2 3.0
-#define DISTANCE_3 0.75
+#define DISTANCE_3 1.0
 
 /* SWITCH
  *========
@@ -21,7 +21,7 @@ void Switch::Run() {
     //Put forklift in retracted position
     forklift.SetDegree(START_ANGLE);
     //Drive to back wall and turn right
-    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 15);
+    driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 12);
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);
     Sleep(250);
     turnUntilRPSHeading(90, TURN_POWER);
@@ -32,7 +32,7 @@ void Switch::Run() {
     Sleep(300);
     turnUntilRPSHeading(0, TURN_POWER);
     //Drive into switch and then backwards, then forwards again
-    driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 12);
+    driveUntilSwitchPress(FORWARD_POWER, FRONT_SWITCH, 14);
     Sleep(150);
     drive(-1 * FORWARD_POWER, DISTANCE_2, false, false);
     Sleep(150);

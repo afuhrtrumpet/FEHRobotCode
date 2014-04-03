@@ -35,6 +35,7 @@ void Button::Run() {
     drive(FORWARD_POWER, DISTANCE_5, false, false);
     //Press button until button has been pressed right number of times
     int times = 0;
+    int previousMisses = 0;
         //Go until button has been pressed correct number of times or attempts time out
     while (wonka.OvenPressed() < wonka.Oven() && times < MAX_TIMES) {
         int previousPresses = wonka.OvenPressed();
@@ -51,9 +52,14 @@ void Button::Run() {
             drive(-1 * FORWARD_POWER, DISTANCE_NOT_HIT, false, false);
             //Adjust to horizontal
             Sleep(100);
+            previousMisses++;
             turnToRPSHeading(90, TURN_POWER, CLOSEST, false, 0.5);
+            if (previousMisses != 0 && previousMisses % 2 == 0) {
+                turn(true, TURN_POWER, 3, false);
+            }
         } else {
             drive(-1 * FORWARD_POWER, DISTANCE_HIT, false, false);
+            previousMisses = 0;
         }
         times++;
     }

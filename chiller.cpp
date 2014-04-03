@@ -27,7 +27,7 @@ void Chiller::Run() {
     Sleep(250);
     turnToRPSHeading(0, TURN_POWER, CLOSEST, true, 1);
     turnUntilRPSHeading(0, RPS_POWER);
-    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 20);
+    driveUntilSwitchPress(-1 * FORWARD_POWER, BACK_SWITCH, 10);
     //Set forklift to horizontal to drop off skid
     forklift.SetDegree(DROP_OFF_ANGLE);
     //Drive to chiller

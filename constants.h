@@ -40,7 +40,7 @@
 #define COUNTS_PER_CHECK 10
 
 //Multiplier of left motor's power to match right
-#define LEFT_MODIFIER 1.1
+#define LEFT_MODIFIER 1.0
 //Light must below this value to start
 #define LIGHT_START_THRESHOLD 1.5
 //Defined difference between red and blue light

@@ -7,10 +7,11 @@
 #define DISTANCE_2 20.0
 #define DISTANCE_3 2.0
 #define DISTANCE_4 5.5
-#define DISTANCE_5 10
-#define DISTANCE_6 7
+#define DISTANCE_5 15
+#define DISTANCE_6 6
 #define DISTANCE_7 7.5
 #define DISTANCE_8 5
+#define DISTANCE_9 10
 
 #define CORRECTION_DISTANCE 3.0
 
@@ -24,6 +25,7 @@ Skid::Skid()
 }
 
 int Skid::Run() {
+    driveToRPSCoordinate(RPS_POWER, skidX, false, true);
     //Turn left, adjust, then back into wall
     turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
     Sleep(250);
@@ -46,10 +48,17 @@ int Skid::Run() {
     //Drive back and forward to hit wall again
     drive(FORWARD_POWER * -1, DISTANCE_3, false, false);
     Sleep(50);
+    forklift.SetDegree(HORIZONTAL);
+    turnUntilRPSHeading(0, TURN_POWER);
     drive(FORWARD_POWER, DISTANCE_8, false, false);
+    Sleep(100);
+    turnUntilRPSHeading(0, TURN_POWER);
+    forklift.SetDegree(SKID_ANGLE);
     //Drive all the way back and forward again to ensure skid is up
-    drive(FORWARD_POWER * -1, 15, false, false);
+    for (int i = 0; i < 2; i++) {
+        drive(FORWARD_POWER * -1, 5, false, false, .6);
     Sleep(200);
+    }
     turnUntilRPSHeading(0, TURN_POWER);
     if (!driveUntilSwitchPress(FORWARD_POWER * -1, BACK_SWITCH, 15)) {
         turnUntilRPSHeading(0, TURN_POWER);
@@ -62,6 +71,7 @@ int Skid::Run() {
     turnToRPSHeading(90, TURN_POWER, LEFT, true, 1);
     Sleep(250);
     turnUntilRPSHeading(90, TURN_POWER, 4.0, 0.125);
+    drive(FORWARD_POWER, DISTANCE_9, false, false);
     driveToRPSCoordinate(FORWARD_POWER, rampX, false, false);
     //Turn and drive backwards down ramp
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
@@ -77,7 +87,7 @@ int Skid::Run() {
             turnToRPSHeading(90, TURN_POWER, LEFT, false, 1);
             turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
         }
-        turnUntilRPSHeading(0, TURN_POWER);
+        turnUntilRPSHeading(0, TURN_POWER, 2.0);
     }
     //Read light state and drive the rest of the way
     int lightState = driveAndReadLight(FORWARD_POWER * -1, DISTANCE_5, false);

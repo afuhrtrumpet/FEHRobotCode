@@ -34,11 +34,11 @@ void Pin::Run() {
     drive(FORWARD_POWER, DISTANCE_3, false, false);
     forklift.SetDegree(PIN_ANGLE);
     start = TimeNow();
-    while (TimeNow() - start < .75);
+    while (TimeNow() - start < .5);
     forklift.SetDegree(START_ANGLE);
     //Drive back then forwards again
     start = TimeNow();
-    while (TimeNow() - start < .75);
+    while (TimeNow() - start < .5);
     drive(PIN_POWER * -1, DISTANCE_3, false, false);
     drive(PIN_POWER, DISTANCE_2, false, false);
 }
