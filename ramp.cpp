@@ -22,7 +22,7 @@ void Ramp::Run() {
         Sleep(100);
         turnUntilRPSHeading(0, FORWARD_POWER, 2.0);
     }
-    drivePastRPSCoordinate(RAMP_POWER, UP_RAMP_Y, true, true, 30.0);
+    drivePastRPSCoordinate(RAMP_POWER, UP_RAMP_Y, true, true, 20.0);
     forklift.SetDegree(START_ANGLE);
     //Turn to face charger
     turnToRPSHeading(90, TURN_POWER, RIGHT, false, 1);

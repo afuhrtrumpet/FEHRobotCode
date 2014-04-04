@@ -4,7 +4,7 @@
 
 void waitForStartLight() {
     float start = TimeNow();
-    while (photosensor.Value() > LIGHT_START_THRESHOLD && TimeNow() - start < 30.0) {
+    while (photosensor.Value() > LIGHT_START_THRESHOLD && TimeNow() - start < 40.0) {
         LCD.Clear();
         LCD.Write("Waiting for start light.\nValue is currently ");
         LCD.WriteLine(photosensor.Value());

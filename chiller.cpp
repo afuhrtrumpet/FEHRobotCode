@@ -38,4 +38,5 @@ void Chiller::Run() {
     drive(FORWARD_POWER, DISTANCE_3, false, false);
     Sleep(50);
     turnUntilRPSHeading(0, TURN_POWER, 2.5);
+    forklift.SetDegree(OUT_OF_CHILLER_ANGLE);
 }

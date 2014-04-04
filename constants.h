@@ -81,7 +81,8 @@
 //Angle when swiping the pin
 #define PIN_DOWN_ANGLE 85
 //Angle when pushing skid in chiller
-#define SKID_PUSH_ANGLE 115
+#define SKID_PUSH_ANGLE 105
+#define OUT_OF_CHILLER_ANGLE 105
 
 //Starting angle of door
 #define DOOR_CLOSED 115
