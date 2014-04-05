@@ -105,7 +105,7 @@
 #define PIN_X 10.0
 #define PIN_Y 41.5
 #define SKID_X 6.5
-#define UP_RAMP_Y 35
+#define UP_RAMP_Y 38
 #define DOWN_RAMP_Y 15
 #define SWITCH_Y 5
 
