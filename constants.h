@@ -136,6 +136,8 @@
 #define LINEAR_TIME_LIMIT 5.0
 #define UP_RAMP_TIME_LIMIT 1.0
 
+#define UNIVERSAL_TIMEOUT 15.0
+
 //Default thresholds for optosensors (probably wrong)
 extern float yellowLeft;
 extern float yellowCenter;

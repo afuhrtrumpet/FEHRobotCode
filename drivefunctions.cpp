@@ -30,7 +30,8 @@ void drive(float power, float distance, bool encodingCorrection, bool debug, flo
         right.SetPower(power);
         leftencoder.ResetCounts();
         rightencoder.ResetCounts();
-        while (rightencoder.Counts() < distance * COUNTS_PER_INCH) {
+        float start = TimeNow();
+        while (rightencoder.Counts() < distance * COUNTS_PER_INCH && TimeNow() - start < UNIVERSAL_TIMEOUT) {
             if (rightencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
                 //Look at encoder counts and adjust right motor based on results
                 if (rightencoder.Counts() != 0) {
@@ -200,7 +201,8 @@ void turn(bool isRight, float power, int degrees, bool withSkid) {
     }
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
-    while (rightencoder.Counts() < degrees * (isRight ? countsPerDegreeRight : countsPerDegreeLeft) / (withSkid ? 1.0 : 1.0)) {
+    float start = TimeNow();
+    while (rightencoder.Counts() < degrees * (isRight ? countsPerDegreeRight : countsPerDegreeLeft) / (withSkid ? 1.0 : 1.0) && TimeNow() - start < UNIVERSAL_TIMEOUT) {
         LCD.Clear();
         LCD.Write("The value of the left encoder is ");
         LCD.WriteLine(rightencoder.Counts());
