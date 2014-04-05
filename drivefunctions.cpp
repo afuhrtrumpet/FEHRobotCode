@@ -57,7 +57,8 @@ int driveAndReadLight(float power, float distance, bool encodingCorrection) {
     right.SetPower(power);
     leftencoder.ResetCounts();
     rightencoder.ResetCounts();
-    while (rightencoder.Counts() < distance * COUNTS_PER_INCH) {
+    float start = TimeNow();
+    while (rightencoder.Counts() < distance * COUNTS_PER_INCH && TimeNow() - start < UNIVERSAL_TIMEOUT) {
         if (rightencoder.Counts() % COUNTS_PER_CHECK == 0 && encodingCorrection) {
             //Look at encoder counts and adjust right motor based on results
             if (rightencoder.Counts() != 0) {
@@ -84,11 +85,13 @@ bool driveUntilSwitchPress(float power, int switchId, float timeoutDistance) {
     rightencoder.ResetCounts();
     left.SetPower(power * LEFT_MODIFIER);
     right.SetPower(power);
+    float start = TimeNow();
     while (((switchId == FRONT_SWITCH && frontSwitch.Value()) ||
             (switchId == BACK_SWITCH && backSwitch.Value()) ||
             (switchId == RIGHT_SWITCH && rightSwitch.Value() ||
              (switchId == FORKLIFT_SWITCH && forkliftSwitch.Value()))) &&
-                    rightencoder.Counts() < timeoutDistance * COUNTS_PER_INCH);
+                    rightencoder.Counts() < timeoutDistance * COUNTS_PER_INCH
+           && TimeNow() - start < UNIVERSAL_TIMEOUT);
     left.Stop();
     right.Stop();
     return rightencoder.Counts() < timeoutDistance * COUNTS_PER_INCH;
@@ -124,7 +127,7 @@ void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncr
 void driveToRPSCoordinate(float power, float coordinate, bool y, bool facingIncreasingDirection, float degree) {
     float start = TimeNow();
     bool direction; //true if forward
-    while ((y && abs(coordinate - wonka.Y()) > RPS_DISTANCE_TOLERANCE) || (!y && abs(coordinate - wonka.X()) > RPS_DISTANCE_TOLERANCE) && (TimeNow() - start) < LINEAR_TIME_LIMIT) {
+    while ((y && abs(coordinate - wonka.Y()) > RPS_DISTANCE_TOLERANCE && wonka.Y() != 0.0) || (!y && abs(coordinate - wonka.X()) > RPS_DISTANCE_TOLERANCE && wonka.X() != 0.0) && (TimeNow() - start) < LINEAR_TIME_LIMIT) {
         if (y) {
             direction = wonka.Y() < coordinate == facingIncreasingDirection;
         } else {

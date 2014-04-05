@@ -11,7 +11,7 @@
 #define DISTANCE_6 6
 #define DISTANCE_7 7.5
 #define DISTANCE_8 5
-#define DISTANCE_9 10
+#define DISTANCE_9 8
 
 #define CORRECTION_DISTANCE 3.0
 
@@ -76,6 +76,8 @@ int Skid::Run() {
     turnUntilRPSHeading(90, TURN_POWER, 4.0, 0.125);
     drive(FORWARD_POWER, DISTANCE_9, false, false);
     driveToRPSCoordinate(FORWARD_POWER, rampX, false, false);
+    Sleep(50);
+    driveToRPSCoordinate(FORWARD_POWER, rampX, false, false);
     //Turn and drive backwards down ramp
     turnToRPSHeading(0, TURN_POWER, RIGHT, true, 1);
     turn(false, TURN_POWER, 10, true);
@@ -86,10 +88,10 @@ int Skid::Run() {
         //Drive periodically and check two more times
         drive(FORWARD_POWER * -1, DISTANCE_6, false, false);
         Sleep(250);
-        if (wonka.Y() < SWITCH_Y) {
+        /*if (wonka.Y() < SWITCH_Y) {
             turnToRPSHeading(90, TURN_POWER, LEFT, false, 1);
             turnToRPSHeading(0, TURN_POWER, LEFT, false, 1);
-        }
+        }*/
         turnUntilRPSHeading(0, TURN_POWER, 2.0);
     }
     //Read light state and drive the rest of the way

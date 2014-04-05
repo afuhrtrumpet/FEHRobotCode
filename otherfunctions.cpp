@@ -167,23 +167,30 @@ void calibrateEncoders() {
 
 void calibrateRPS() {
     while (!buttons.MiddlePressed()) {
-    LCD.Clear();
-    LCD.WriteLine("Place the robot facing the pin parallel to the skid.");
-    LCD.Write("X: ");
-    LCD.WriteLine(wonka.X());
-    Sleep(20);
+        LCD.Clear();
+        LCD.WriteLine("Place the robot facing the pin parallel to the skid.");
+        LCD.Write("X: ");
+        LCD.WriteLine(wonka.X());
+        Sleep(20);
     }
     while (!buttons.MiddleReleased());
     skidX = wonka.X();
     while (!buttons.MiddlePressed()) {
-    LCD.Clear();
-    LCD.WriteLine("Place the robot facing the button and align it with the ramp.");
-    LCD.Write("X: ");
-    LCD.WriteLine(wonka.X());
-    Sleep(20);
+        LCD.Clear();
+        LCD.WriteLine("Place the robot facing the button and align it with the ramp.");
+        LCD.Write("X: ");
+        LCD.WriteLine(wonka.X());
+        Sleep(20);
     }
     while (!buttons.MiddleReleased());
     rampX = wonka.X();
+    LCD.Clear();
+    LCD.Write("The new skid X is ");
+    LCD.WriteLine(skidX);
+    LCD.Write("The new ramp X is ");
+    LCD.WriteLine(rampX);
+    while (!buttons.MiddlePressed());
+    while (!buttons.MiddleReleased());
 }
 
 int readLight() {
@@ -210,11 +217,11 @@ int adjustToLight() {
     int lightState = readLight();
     while (lightState == NO_LIGHT) {
         float y = wonka.Y();
-    if (y < LIGHT_Y) { //Robot is in front of light
-        drive(FORWARD_POWER * -1, ADJUST_DISTANCE, false, false);
-    } else { //Robot is behind light
-        drive(FORWARD_POWER, ADJUST_DISTANCE, false, false);
-    }
+        if (y < LIGHT_Y) { //Robot is in front of light
+            drive(FORWARD_POWER * -1, ADJUST_DISTANCE, false, false);
+        } else { //Robot is behind light
+            drive(FORWARD_POWER, ADJUST_DISTANCE, false, false);
+        }
         lightState = readLight();
     }
     return lightState;
